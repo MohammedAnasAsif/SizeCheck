@@ -1,0 +1,371 @@
+{
+  "id": "levis",
+  "name": "Levi's",
+  "origin": "international",
+  "aliases": [
+    "levis",
+    "levi s"
+  ],
+  "domains": [
+    "levi.com",
+    "levi.in"
+  ],
+  "charts": [
+    {
+      "category": "men_tops",
+      "basis": "body",
+      "region": "EU",
+      "unit": "cm",
+      "sizes": [
+        {
+          "label": "XS",
+          "neck": [
+            37.4,
+            37.7
+          ],
+          "chest": [
+            81.3,
+            86.4
+          ],
+          "waist": [
+            66,
+            71.1
+          ],
+          "hip": [
+            81.3,
+            86.4
+          ]
+        },
+        {
+          "label": "S",
+          "neck": [
+            38.1,
+            38.7
+          ],
+          "chest": [
+            88.9,
+            94
+          ],
+          "waist": [
+            73.7,
+            78.7
+          ],
+          "hip": [
+            89,
+            94
+          ]
+        },
+        {
+          "label": "M",
+          "neck": [
+            39,
+            40
+          ],
+          "chest": [
+            96.5,
+            101.6
+          ],
+          "waist": [
+            81.3,
+            86.4
+          ],
+          "hip": [
+            96.5,
+            101.6
+          ]
+        },
+        {
+          "label": "L",
+          "neck": [
+            40.9,
+            41.9
+          ],
+          "chest": [
+            104.1,
+            109.2
+          ],
+          "waist": [
+            88.9,
+            94
+          ],
+          "hip": [
+            104.1,
+            109.2
+          ]
+        },
+        {
+          "label": "XL",
+          "neck": [
+            42.8,
+            43.8
+          ],
+          "chest": [
+            111.8,
+            116.8
+          ],
+          "waist": [
+            96.5,
+            101.6
+          ],
+          "hip": [
+            111.8,
+            116.8
+          ]
+        },
+        {
+          "label": "XXL",
+          "neck": [
+            44.7,
+            45.7
+          ],
+          "chest": [
+            119.4,
+            124.5
+          ],
+          "waist": [
+            104.1,
+            109.2
+          ],
+          "hip": [
+            119.4,
+            124.5
+          ]
+        }
+      ],
+      "source": {
+        "url": "https://www.levi.com/DE/en/info/sizechart",
+        "verified_on": "2026-11-06"
+      }
+    },
+    {
+      "category": "men_bottoms",
+      "basis": "body",
+      "region": "EU",
+      "unit": "cm",
+      "note": "Jeans, by waist size. The brand calls the hip measurement \"seat\".",
+      "sizes": [
+        {
+          "label": "24",
+          "waist": 61,
+          "hip": 77.5
+        },
+        {
+          "label": "25",
+          "waist": 63.5,
+          "hip": 80
+        },
+        {
+          "label": "26",
+          "waist": 66,
+          "hip": 82.5
+        },
+        {
+          "label": "27",
+          "waist": 68.6,
+          "hip": 85
+        },
+        {
+          "label": "28",
+          "waist": 71.1,
+          "hip": 87.5
+        },
+        {
+          "label": "29",
+          "waist": 73.7,
+          "hip": 90.2
+        },
+        {
+          "label": "30",
+          "waist": 76.2,
+          "hip": 92.7
+        },
+        {
+          "label": "31",
+          "waist": 78.7,
+          "hip": 95.3
+        },
+        {
+          "label": "32",
+          "waist": 81.3,
+          "hip": 97.8
+        },
+        {
+          "label": "33",
+          "waist": 83.8,
+          "hip": 100.3
+        },
+        {
+          "label": "34",
+          "waist": 86.4,
+          "hip": 103
+        },
+        {
+          "label": "35",
+          "waist": 89,
+          "hip": 105.5
+        },
+        {
+          "label": "36",
+          "waist": 91.4,
+          "hip": 108
+        },
+        {
+          "label": "38",
+          "waist": 96.5,
+          "hip": 113
+        },
+        {
+          "label": "40",
+          "waist": 101.6,
+          "hip": 118
+        },
+        {
+          "label": "42",
+          "waist": 106.7,
+          "hip": 123.2
+        },
+        {
+          "label": "44",
+          "waist": 111.8,
+          "hip": 128.3
+        },
+        {
+          "label": "46",
+          "waist": 116.7,
+          "hip": 133.5
+        },
+        {
+          "label": "48",
+          "waist": 121.9,
+          "hip": 138.5
+        }
+      ],
+      "source": {
+        "url": "https://www.levi.com/DE/en/info/sizechart",
+        "verified_on": "2026-11-06"
+      }
+    },
+    {
+      "category": "women_tops",
+      "basis": "body",
+      "region": "EU",
+      "unit": "cm",
+      "sizes": [
+        {
+          "label": "XXS",
+          "chest": 79,
+          "waist": 62,
+          "hip": 86
+        },
+        {
+          "label": "XS",
+          "chest": 84,
+          "waist": 66,
+          "hip": 91
+        },
+        {
+          "label": "S",
+          "chest": 89,
+          "waist": 71,
+          "hip": 97
+        },
+        {
+          "label": "M",
+          "chest": 94,
+          "waist": 76,
+          "hip": 102
+        },
+        {
+          "label": "L",
+          "chest": 100,
+          "waist": 83,
+          "hip": 108
+        },
+        {
+          "label": "XL",
+          "chest": 108,
+          "waist": 90,
+          "hip": 116
+        },
+        {
+          "label": "XXL",
+          "chest": 115,
+          "waist": 99,
+          "hip": 123
+        }
+      ],
+      "source": {
+        "url": "https://www.levi.com/DE/en/info/sizechart",
+        "verified_on": "2026-11-06"
+      }
+    },
+    {
+      "category": "women_bottoms",
+      "basis": "body",
+      "region": "EU",
+      "unit": "cm",
+      "note": "Jeans, by jean size.",
+      "sizes": [
+        {
+          "label": "24",
+          "waist": 64,
+          "hip": 86
+        },
+        {
+          "label": "25",
+          "waist": 66,
+          "hip": 89
+        },
+        {
+          "label": "26",
+          "waist": 69,
+          "hip": 91.5
+        },
+        {
+          "label": "27",
+          "waist": 72,
+          "hip": 94
+        },
+        {
+          "label": "28",
+          "waist": 74,
+          "hip": 96.5
+        },
+        {
+          "label": "29",
+          "waist": 77,
+          "hip": 99
+        },
+        {
+          "label": "30",
+          "waist": 79,
+          "hip": 101
+        },
+        {
+          "label": "31",
+          "waist": 83,
+          "hip": 105
+        },
+        {
+          "label": "32",
+          "waist": 87,
+          "hip": 109
+        },
+        {
+          "label": "33",
+          "waist": 90,
+          "hip": 113
+        },
+        {
+          "label": "34",
+          "waist": 96,
+          "hip": 118
+        }
+      ],
+      "source": {
+        "url": "https://www.levi.com/DE/en/info/sizechart",
+        "verified_on": "2026-11-06"
+      }
+    }
+  ]
+}

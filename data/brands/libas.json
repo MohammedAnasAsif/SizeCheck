@@ -1,0 +1,25 @@
+{
+  "id": "libas",
+  "name": "Libas",
+  "origin": "indian",
+  "aliases": ["libas"],
+  "domains": ["libas.in"],
+  "charts": [
+    {
+      "category": "women_tops",
+      "basis": "body",
+      "region": "IN",
+      "unit": "in",
+      "note": "Kurtas and kurtis.",
+      "sizes": [
+        { "label": "XS", "chest": 34, "waist": 30, "hip": 36, "shoulder": 13.5 },
+        { "label": "S", "chest": 36, "waist": 32, "hip": 38, "shoulder": 14 },
+        { "label": "M", "chest": 38, "waist": 34, "hip": 40, "shoulder": 14.5 },
+        { "label": "L", "chest": 40, "waist": 36, "hip": 42, "shoulder": 15 },
+        { "label": "XL", "chest": 42, "waist": 38, "hip": 44, "shoulder": 15.5 },
+        { "label": "XXL", "chest": 44, "waist": 40, "hip": 46, "shoulder": 16 }
+      ],
+      "source": { "url": "https://www.libas.in/pages/size-chart", "verified_on": "2026-11-06" }
+    }
+  ]
+}

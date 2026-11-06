@@ -1,0 +1,30 @@
+{
+  "id": "true-browns",
+  "name": "True Browns",
+  "origin": "indian",
+  "aliases": ["true browns", "truebrowns"],
+  "domains": ["truebrowns.com"],
+  "charts": [
+    {
+      "category": "women_tops",
+      "basis": "body",
+      "region": "IN",
+      "unit": "in",
+      "note": "Kurtas, blouses, dresses and tops.",
+      "sizes": [
+        { "label": "2XS", "shoulder": 13.5, "chest": 30, "waist": [24, 26], "hip": 33 },
+        { "label": "XS", "shoulder": 14, "chest": 32, "waist": [26, 28], "hip": 35 },
+        { "label": "S", "shoulder": 14.5, "chest": 34, "waist": [28, 30], "hip": 37 },
+        { "label": "M", "shoulder": 15, "chest": 36, "waist": [30, 32], "hip": 39 },
+        { "label": "L", "shoulder": 15.5, "chest": 38, "waist": [32, 34], "hip": 41 },
+        { "label": "XL", "shoulder": 16, "chest": 40, "waist": [34, 36], "hip": 43 },
+        { "label": "2XL", "shoulder": 16.5, "chest": 42, "waist": [36, 38], "hip": 45 },
+        { "label": "3XL", "shoulder": 17, "chest": 44, "waist": [38, 40], "hip": 47 },
+        { "label": "4XL", "shoulder": 17.5, "chest": 46, "waist": [40, 42], "hip": 49 },
+        { "label": "5XL", "shoulder": 18, "chest": 48, "waist": [42, 44], "hip": 51 },
+        { "label": "6XL", "shoulder": 18.5, "chest": 50, "waist": [44, 46], "hip": 53 }
+      ],
+      "source": { "url": "https://www.truebrowns.com/pages/size-guide", "verified_on": "2026-11-06" }
+    }
+  ]
+}

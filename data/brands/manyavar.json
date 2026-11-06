@@ -1,0 +1,28 @@
+{
+  "id": "manyavar",
+  "name": "Manyavar",
+  "origin": "indian",
+  "aliases": ["manyavar"],
+  "domains": ["manyavar.com"],
+  "charts": [
+    {
+      "category": "men_tops",
+      "basis": "body",
+      "region": "IN",
+      "unit": "in",
+      "note": "Kurtas. Body measurements from the brand's standard kurta guide.",
+      "sizes": [
+        { "label": "S", "alt": ["36"], "chest": 36, "shoulder": 17, "neck": 15, "waist": 33, "hip": 37, "sleeve": 24 },
+        { "label": "M", "alt": ["38"], "chest": 38, "shoulder": 17.5, "neck": 15.5, "waist": 35, "hip": 39, "sleeve": 24.5 },
+        { "label": "L", "alt": ["40"], "chest": 40, "shoulder": 18, "neck": 16, "waist": 37, "hip": 41, "sleeve": 25 },
+        { "label": "XL", "alt": ["42"], "chest": 42, "shoulder": 18.5, "neck": 16.5, "waist": 39.5, "hip": 43, "sleeve": 25.5 },
+        { "label": "XXL", "alt": ["44"], "chest": 44, "shoulder": 19, "neck": 17, "waist": 41.5, "hip": 44, "sleeve": 26 },
+        { "label": "XXXL", "alt": ["46"], "chest": 46, "shoulder": 20, "neck": 18, "waist": 43.5, "hip": 46, "sleeve": 26 },
+        { "label": "4XL", "alt": ["48"], "chest": 48, "shoulder": 21, "neck": 18.5, "waist": 46.5, "hip": 48, "sleeve": 27 },
+        { "label": "5XL", "alt": ["50"], "chest": 50, "shoulder": 21.5, "neck": 19, "waist": 48.5, "hip": 50, "sleeve": 27.5 },
+        { "label": "6XL", "alt": ["52"], "chest": 52, "shoulder": 21.5, "neck": 19.5, "waist": 50.5, "hip": 53, "sleeve": 28 }
+      ],
+      "source": { "url": "https://www.manyavar.com/en-au/kurta/textured-green-kurta/UC103339.html", "verified_on": "2026-11-06" }
+    }
+  ]
+}

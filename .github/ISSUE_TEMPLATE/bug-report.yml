@@ -1,0 +1,25 @@
+name: Report a problem
+description: Something in the app does not work or a size looks wrong.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: If a recommended size was wrong, say the brand, clothing type, the size SizeCheck suggested and the size that actually fit.
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Device
+      options:
+        - Android
+        - Windows
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: From the Releases page file name, e.g. 0.1.0

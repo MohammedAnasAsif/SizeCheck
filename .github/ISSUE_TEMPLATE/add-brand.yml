@@ -1,0 +1,55 @@
+name: Add or fix a brand's size chart
+description: Share a brand's official size chart so everyone using SizeCheck gets it.
+title: "Add brand: "
+labels: ["brand-data"]
+body:
+  - type: input
+    id: brand
+    attributes:
+      label: Brand name
+      placeholder: e.g. Van Heusen
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Clothing type
+      options:
+        - Men · T-shirts & tops
+        - Men · Shirts
+        - Men · Jeans & trousers
+        - Women · Tops & kurtas
+        - Women · Jeans & trousers
+        - Women · Dresses
+        - Unisex · T-shirts & tops
+        - Unisex · Jeans & trousers
+        - Men · Footwear
+        - Women · Footwear
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Link to the brand's official size chart
+      description: The brand's own website or size guide, not an aggregator site.
+      placeholder: https://
+    validations:
+      required: true
+  - type: dropdown
+    id: basis
+    attributes:
+      label: The chart lists
+      options:
+        - Body measurements ("to fit", "body measurements", "measure yourself")
+        - Garment measurements ("garment", "product", "flat", "actual")
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: chart
+    attributes:
+      label: The size chart
+      description: Copy the table from the brand's page and paste it here, including the header row and the unit (cm or inches).
+      render: text
+    validations:
+      required: true

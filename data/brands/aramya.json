@@ -1,0 +1,33 @@
+{
+  "id": "aramya",
+  "name": "Aramya",
+  "origin": "indian",
+  "aliases": ["aramya"],
+  "domains": ["aramya.in"],
+  "charts": [
+    {
+      "category": "women_tops",
+      "basis": "garment",
+      "region": "IN",
+      "unit": "in",
+      "note": "Kurtas and kurtis. The brand lists garment measurements.",
+      "sizes": [
+        { "label": "XS", "shoulder": 13.5, "chest": 34, "waist": 30, "hip": 37 },
+        { "label": "S", "shoulder": 14, "chest": 36, "waist": 32, "hip": 39 },
+        { "label": "M", "shoulder": 14.5, "chest": 38, "waist": 34, "hip": 40 },
+        { "label": "L", "shoulder": 15, "chest": 40, "waist": 37, "hip": 42 },
+        { "label": "XL", "shoulder": 15.5, "chest": 42, "waist": 40, "hip": 45 },
+        { "label": "2XL", "shoulder": 16, "chest": 44, "waist": 42, "hip": 47 },
+        { "label": "3XL", "shoulder": 16.5, "chest": 47, "waist": 45, "hip": 51 },
+        { "label": "4XL", "shoulder": 17, "chest": 49, "waist": 47, "hip": 53 },
+        { "label": "5XL", "shoulder": 17.5, "chest": 51, "waist": 49, "hip": 55 },
+        { "label": "6XL", "shoulder": 18, "chest": 53, "waist": 51, "hip": 57 },
+        { "label": "7XL", "shoulder": 18.5, "chest": 55, "waist": 53, "hip": 60 },
+        { "label": "8XL", "shoulder": 19, "chest": 57, "waist": 55, "hip": 62 },
+        { "label": "9XL", "shoulder": 19.5, "chest": 59, "waist": 57, "hip": 64 },
+        { "label": "10XL", "shoulder": 20, "chest": 61, "waist": 59, "hip": 66 }
+      ],
+      "source": { "url": "https://aramya.in/pages/kurti-size-chart", "verified_on": "2026-11-06" }
+    }
+  ]
+}

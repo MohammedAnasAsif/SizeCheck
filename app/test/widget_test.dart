@@ -45,6 +45,8 @@ void main() {
     expect(find.text('SizeCheck'), findsWidgets);
     expect(find.text('Testbrand'), findsOneWidget);
 
+    await tester.ensureVisible(find.text('Testbrand'));
+    await tester.pumpAndSettle();
     await tester.tap(find.text('Testbrand'));
     await tester.pumpAndSettle();
     expect(find.text('Add a measurement to get your size'), findsOneWidget);
