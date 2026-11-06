@@ -1,0 +1,44 @@
+{
+  "id": "primark",
+  "name": "Primark",
+  "origin": "international",
+  "aliases": ["primark"],
+  "domains": ["primark.com"],
+  "charts": [
+    {
+      "category": "men_tops",
+      "basis": "body",
+      "region": "UK",
+      "unit": "cm",
+      "note": "Casual tops.",
+      "sizes": [
+        { "label": "2XS", "chest": [86, 89] },
+        { "label": "XS", "chest": [89, 91] },
+        { "label": "S", "chest": [91, 96] },
+        { "label": "M", "chest": [96.5, 101.5] },
+        { "label": "L", "chest": [104, 109] },
+        { "label": "XL", "chest": [112, 117] },
+        { "label": "2XL", "chest": [119.5, 124.5] },
+        { "label": "3XL", "chest": [127, 132] }
+      ],
+      "source": { "url": "https://www.primark.com/en-gb/size-charts/men/shirts-and-t-shirts", "verified_on": "2026-11-06" }
+    },
+    {
+      "category": "men_shirts",
+      "basis": "body",
+      "region": "UK",
+      "unit": "cm",
+      "note": "Formal shirts.",
+      "sizes": [
+        { "label": "XS", "chest": [89, 91], "neck": [35.5, 37] },
+        { "label": "S", "chest": [91, 96], "neck": 38 },
+        { "label": "M", "chest": [96.5, 101.5], "neck": 39 },
+        { "label": "L", "chest": [104, 109], "neck": 40.5 },
+        { "label": "XL", "chest": [112, 117], "neck": 42 },
+        { "label": "2XL", "chest": [119.5, 124.5], "neck": [43, 44.5] },
+        { "label": "3XL", "chest": [127, 132], "neck": [45.5, 47] }
+      ],
+      "source": { "url": "https://www.primark.com/en-gb/size-charts/men/shirts-and-t-shirts", "verified_on": "2026-11-06" }
+    }
+  ]
+}

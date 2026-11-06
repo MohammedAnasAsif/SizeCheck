@@ -1,0 +1,54 @@
+{
+  "id": "marks-and-spencer",
+  "name": "Marks & Spencer",
+  "origin": "international",
+  "aliases": ["marks and spencer", "marks spencer", "m and s"],
+  "domains": ["marksandspencer.com", "marksandspencer.in"],
+  "charts": [
+    {
+      "category": "men_shirts",
+      "basis": "body",
+      "region": "UK",
+      "unit": "in",
+      "note": "Formal shirts are sized by collar (neck) size. Sleeve lengths are measured from the centre of the back, so they are not included.",
+      "sizes": [
+        { "label": "14", "alt": ["S"], "neck": 14, "chest": 34 },
+        { "label": "14.5", "neck": 14.5, "chest": 36 },
+        { "label": "15", "alt": ["M"], "neck": 15, "chest": 38 },
+        { "label": "15.5", "neck": 15.5, "chest": 40 },
+        { "label": "16", "alt": ["L"], "neck": 16, "chest": 42 },
+        { "label": "16.5", "neck": 16.5, "chest": 44 },
+        { "label": "17", "alt": ["XL"], "neck": 17, "chest": 46 },
+        { "label": "17.5", "alt": ["2XL"], "neck": 17.5, "chest": 48 },
+        { "label": "18", "neck": 18, "chest": 50 },
+        { "label": "18.5", "alt": ["3XL"], "neck": 18.5, "chest": 52 },
+        { "label": "19", "neck": 19, "chest": 54 },
+        { "label": "19.5", "alt": ["4XL"], "neck": 19.5, "chest": 56 },
+        { "label": "20", "neck": 20, "chest": 58 },
+        { "label": "20.5", "alt": ["5XL"], "neck": 20.5, "chest": 60 },
+        { "label": "21", "neck": 21, "chest": 62 }
+      ],
+      "source": { "url": "https://www.marksandspencer.com/C/Size-Guides%3FespotId%3DPDP-SG_SG-MWSHIRT", "verified_on": "2026-11-06" }
+    },
+    {
+      "category": "women_tops",
+      "basis": "body",
+      "region": "UK",
+      "unit": "cm",
+      "note": "UK sizes.",
+      "sizes": [
+        { "label": "6", "chest": 78, "waist": 61 },
+        { "label": "8", "chest": 82, "waist": 65 },
+        { "label": "10", "chest": 87, "waist": 70 },
+        { "label": "12", "chest": 92, "waist": 75 },
+        { "label": "14", "chest": 97, "waist": 80.5 },
+        { "label": "16", "chest": 102.5, "waist": 86 },
+        { "label": "18", "chest": 108, "waist": 92 },
+        { "label": "20", "chest": 114, "waist": 98 },
+        { "label": "22", "chest": 120, "waist": 104 },
+        { "label": "24", "chest": 126, "waist": 110 }
+      ],
+      "source": { "url": "https://www.marksandspencer.com/us/sizeguides/sizeguidewomens/sizeguidewomens-tops.html", "verified_on": "2026-11-06" }
+    }
+  ]
+}

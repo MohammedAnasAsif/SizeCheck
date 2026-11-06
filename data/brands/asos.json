@@ -1,0 +1,27 @@
+{
+  "id": "asos",
+  "name": "ASOS DESIGN",
+  "origin": "international",
+  "aliases": ["asos design", "asos"],
+  "domains": ["asos.com"],
+  "charts": [
+    {
+      "category": "men_shirts",
+      "basis": "body",
+      "region": "UK",
+      "unit": "cm",
+      "sizes": [
+        { "label": "XXXS", "chest": [76, 81], "neck": 36 },
+        { "label": "XXS", "chest": [81, 86], "neck": 37.5 },
+        { "label": "XS", "chest": [86, 91], "neck": 38.5 },
+        { "label": "S", "chest": [91, 96], "neck": 39.5 },
+        { "label": "M", "chest": [96, 101], "neck": 41.5 },
+        { "label": "L", "chest": [101, 106], "neck": 43.5 },
+        { "label": "XL", "chest": [106, 111], "neck": 45.5 },
+        { "label": "XXL", "chest": [111, 116], "neck": 47.5 },
+        { "label": "XXXL", "chest": [116, 121], "neck": 49.5 }
+      ],
+      "source": { "url": "https://www.asos.com/men/shirts-size-guide/?szgid=19", "verified_on": "2026-11-06" }
+    }
+  ]
+}

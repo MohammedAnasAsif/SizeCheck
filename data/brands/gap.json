@@ -1,0 +1,25 @@
+{
+  "id": "gap",
+  "name": "GAP",
+  "origin": "international",
+  "aliases": ["gap"],
+  "domains": ["gap.com", "gap.ae"],
+  "charts": [
+    {
+      "category": "men_tops",
+      "basis": "body",
+      "region": "INTL",
+      "unit": "cm",
+      "note": "Regular sizes.",
+      "sizes": [
+        { "label": "XS", "chest": [89, 91], "neck": [34, 36] },
+        { "label": "S", "chest": [94, 97], "neck": [36, 37] },
+        { "label": "M", "chest": [99, 104], "neck": [38, 39] },
+        { "label": "L", "chest": [107, 112], "neck": [41, 42] },
+        { "label": "XL", "chest": [114, 122], "neck": [43, 44] },
+        { "label": "XXL", "chest": [124, 132], "neck": [46, 47] }
+      ],
+      "source": { "url": "https://www.gap.ae/en/size-chart-men-tops.html", "verified_on": "2026-11-06" }
+    }
+  ]
+}
