@@ -1,0 +1,443 @@
+{
+  "id": "adidas",
+  "name": "adidas",
+  "origin": "international",
+  "aliases": [
+    "adidas"
+  ],
+  "domains": [
+    "adidas.com",
+    "adidas.co.in",
+    "adidas.com.tr"
+  ],
+  "charts": [
+    {
+      "category": "men_tops",
+      "basis": "body",
+      "region": "INTL",
+      "unit": "in",
+      "sizes": [
+        {
+          "label": "XS",
+          "chest": [
+            31,
+            33
+          ],
+          "waist": [
+            27,
+            29
+          ],
+          "hip": [
+            32,
+            34
+          ]
+        },
+        {
+          "label": "S",
+          "chest": [
+            34,
+            37
+          ],
+          "waist": [
+            30,
+            32
+          ],
+          "hip": [
+            35,
+            37
+          ]
+        },
+        {
+          "label": "M",
+          "chest": [
+            37,
+            40
+          ],
+          "waist": [
+            32,
+            35
+          ],
+          "hip": [
+            37,
+            40
+          ]
+        },
+        {
+          "label": "L",
+          "chest": [
+            40,
+            44
+          ],
+          "waist": [
+            35,
+            39
+          ],
+          "hip": [
+            40,
+            44
+          ]
+        },
+        {
+          "label": "XL",
+          "chest": [
+            44,
+            48
+          ],
+          "waist": [
+            39,
+            43
+          ],
+          "hip": [
+            44,
+            48
+          ]
+        },
+        {
+          "label": "2XL",
+          "chest": [
+            48,
+            52
+          ],
+          "waist": [
+            43,
+            47
+          ],
+          "hip": [
+            48,
+            51
+          ]
+        },
+        {
+          "label": "3XL",
+          "chest": [
+            53,
+            58
+          ],
+          "waist": [
+            48,
+            53
+          ],
+          "hip": [
+            51,
+            56
+          ]
+        }
+      ],
+      "source": {
+        "url": "https://adidas.com.tr/en/help-topics-size_charts.html",
+        "verified_on": "2026-11-06"
+      }
+    },
+    {
+      "category": "men_bottoms",
+      "basis": "body",
+      "region": "INTL",
+      "unit": "in",
+      "note": "Alpha-sized bottoms (track pants, shorts).",
+      "sizes": [
+        {
+          "label": "XS",
+          "waist": [
+            27,
+            29
+          ],
+          "hip": [
+            32,
+            34
+          ],
+          "inseam": 31.9
+        },
+        {
+          "label": "S",
+          "waist": [
+            30,
+            32
+          ],
+          "hip": [
+            35,
+            37
+          ],
+          "inseam": 32.1
+        },
+        {
+          "label": "M",
+          "waist": [
+            32,
+            35
+          ],
+          "hip": [
+            37,
+            40
+          ],
+          "inseam": 32.3
+        },
+        {
+          "label": "L",
+          "waist": [
+            35,
+            39
+          ],
+          "hip": [
+            40,
+            44
+          ],
+          "inseam": 32.5
+        },
+        {
+          "label": "XL",
+          "waist": [
+            39,
+            43
+          ],
+          "hip": [
+            44,
+            48
+          ],
+          "inseam": 32.7
+        },
+        {
+          "label": "2XL",
+          "waist": [
+            43,
+            47
+          ],
+          "hip": [
+            48,
+            51
+          ],
+          "inseam": 32.5
+        },
+        {
+          "label": "3XL",
+          "waist": [
+            48,
+            53
+          ],
+          "hip": [
+            51,
+            56
+          ],
+          "inseam": 32.3
+        }
+      ],
+      "source": {
+        "url": "https://adidas.com.tr/en/help-topics-size_charts.html",
+        "verified_on": "2026-11-06"
+      }
+    },
+    {
+      "category": "women_tops",
+      "basis": "body",
+      "region": "INTL",
+      "unit": "in",
+      "sizes": [
+        {
+          "label": "XXS",
+          "chest": [
+            28.7,
+            29.9
+          ],
+          "waist": [
+            22.4,
+            23.6
+          ],
+          "hip": [
+            32.3,
+            33.5
+          ]
+        },
+        {
+          "label": "XS",
+          "chest": [
+            30,
+            32
+          ],
+          "waist": [
+            24,
+            26
+          ],
+          "hip": [
+            34,
+            36
+          ]
+        },
+        {
+          "label": "S",
+          "chest": [
+            33,
+            35
+          ],
+          "waist": [
+            27,
+            28
+          ],
+          "hip": [
+            37,
+            38
+          ]
+        },
+        {
+          "label": "M",
+          "chest": [
+            36,
+            37
+          ],
+          "waist": [
+            29,
+            31
+          ],
+          "hip": [
+            39,
+            41
+          ]
+        },
+        {
+          "label": "L",
+          "chest": [
+            38,
+            40
+          ],
+          "waist": [
+            32,
+            34
+          ],
+          "hip": [
+            42,
+            43
+          ]
+        },
+        {
+          "label": "XL",
+          "chest": [
+            41,
+            43
+          ],
+          "waist": [
+            35,
+            37
+          ],
+          "hip": [
+            44,
+            46
+          ]
+        },
+        {
+          "label": "2XL",
+          "chest": [
+            44,
+            46
+          ],
+          "waist": [
+            38,
+            41
+          ],
+          "hip": [
+            47,
+            49
+          ]
+        }
+      ],
+      "source": {
+        "url": "https://adidas.com.tr/en/help-topics-size_charts.html",
+        "verified_on": "2026-11-06"
+      }
+    },
+    {
+      "category": "women_bottoms",
+      "basis": "body",
+      "region": "INTL",
+      "unit": "in",
+      "note": "Alpha-sized bottoms (leggings, track pants).",
+      "sizes": [
+        {
+          "label": "XXS",
+          "waist": [
+            22.4,
+            23.6
+          ],
+          "hip": [
+            32.3,
+            33.5
+          ],
+          "inseam": 30.5
+        },
+        {
+          "label": "XS",
+          "waist": [
+            24,
+            26
+          ],
+          "hip": [
+            34,
+            36
+          ],
+          "inseam": 30.7
+        },
+        {
+          "label": "S",
+          "waist": [
+            27,
+            28
+          ],
+          "hip": [
+            37,
+            38
+          ],
+          "inseam": 30.9
+        },
+        {
+          "label": "M",
+          "waist": [
+            29,
+            31
+          ],
+          "hip": [
+            39,
+            41
+          ],
+          "inseam": 31.1
+        },
+        {
+          "label": "L",
+          "waist": [
+            32,
+            34
+          ],
+          "hip": [
+            42,
+            43
+          ],
+          "inseam": 31.3
+        },
+        {
+          "label": "XL",
+          "waist": [
+            35,
+            37
+          ],
+          "hip": [
+            44,
+            46
+          ],
+          "inseam": 31.5
+        },
+        {
+          "label": "2XL",
+          "waist": [
+            38,
+            41
+          ],
+          "hip": [
+            47,
+            49
+          ],
+          "inseam": 31.7
+        }
+      ],
+      "source": {
+        "url": "https://adidas.com.tr/en/help-topics-size_charts.html",
+        "verified_on": "2026-11-06"
+      }
+    }
+  ]
+}

@@ -18,7 +18,7 @@ Tick a brand when its file lands in `data/brands/`.
 
 ## International brands
 
-Zara · H&M · Uniqlo · Mango · Tommy Hilfiger · Calvin Klein · U.S. Polo Assn. · Jack & Jones · Vero Moda · Only · Superdry · Gant · Forever New · Adidas · Puma · Under Armour · Reebok · Skechers · Asics · New Balance · Decathlon · Columbia · The North Face · Wrangler · Lee · Lacoste · Hugo Boss · Ralph Lauren · Guess · Diesel · Bershka · Pull&Bear · Stradivarius · Massimo Dutti · Banana Republic · Old Navy · Abercrombie & Fitch · Hollister · American Eagle · Shein
+Zara · H&M · Uniqlo · Mango · Tommy Hilfiger · Calvin Klein · Jack & Jones · Vero Moda · Only · Superdry · Gant · Forever New · Puma · Under Armour · Reebok · Skechers · Asics · New Balance · Decathlon · Columbia · The North Face · Wrangler · Lee · Lacoste · Hugo Boss · Ralph Lauren · Guess · Diesel · Bershka · Pull&Bear · Stradivarius · Massimo Dutti · Banana Republic · Old Navy · Abercrombie & Fitch · Hollister · American Eagle · Shein
 
 ## Footwear (foot length charts)
 

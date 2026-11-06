@@ -140,6 +140,7 @@ class _KnownSizeScreenState extends State<KnownSizeScreen> {
                 FilledButton(
                   onPressed: () {
                     final p = state.active;
+                    final messenger = ScaffoldMessenger.of(context);
                     var added = 0;
                     for (final e in estimate.entries) {
                       final measuredByHand = p.measurements.containsKey(e.key) &&
@@ -153,7 +154,7 @@ class _KnownSizeScreenState extends State<KnownSizeScreen> {
                         : _category!.audience;
                     state.changed();
                     Navigator.pop(context);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    messenger.showSnackBar(SnackBar(
                       content: Text(added == 0
                           ? 'Your own measurements were kept.'
                           : 'Added $added estimated measurements.'),

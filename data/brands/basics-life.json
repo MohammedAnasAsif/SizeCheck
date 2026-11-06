@@ -1,0 +1,290 @@
+{
+  "id": "basics-life",
+  "name": "Basics Life",
+  "origin": "indian",
+  "aliases": [
+    "basics life",
+    "basicslife"
+  ],
+  "domains": [
+    "basicslife.com"
+  ],
+  "charts": [
+    {
+      "category": "men_shirts",
+      "basis": "garment",
+      "fit": "slim",
+      "region": "IN",
+      "unit": "in",
+      "note": "Slim-fit shirts. Garment measurements.",
+      "sizes": [
+        {
+          "label": "XS",
+          "alt": [
+            "38"
+          ],
+          "chest": 38,
+          "waist": 36,
+          "shoulder": 16
+        },
+        {
+          "label": "S",
+          "alt": [
+            "39"
+          ],
+          "chest": 41,
+          "waist": 39,
+          "shoulder": 17.5
+        },
+        {
+          "label": "M",
+          "alt": [
+            "40"
+          ],
+          "chest": 44,
+          "waist": 42,
+          "shoulder": 18.5
+        },
+        {
+          "label": "L",
+          "alt": [
+            "42"
+          ],
+          "chest": 47,
+          "waist": 45,
+          "shoulder": 19.5
+        },
+        {
+          "label": "XL",
+          "alt": [
+            "44"
+          ],
+          "chest": 50,
+          "waist": 48.5,
+          "shoulder": 20.5
+        },
+        {
+          "label": "XXL",
+          "alt": [
+            "46"
+          ],
+          "chest": 53,
+          "waist": 51.5,
+          "shoulder": 21.5
+        },
+        {
+          "label": "XXXL",
+          "alt": [
+            "48"
+          ],
+          "chest": 56,
+          "waist": 54.5,
+          "shoulder": 22.5
+        }
+      ],
+      "source": {
+        "url": "https://basicslife.com/pages/size-guide",
+        "verified_on": "2026-11-06"
+      }
+    },
+    {
+      "category": "men_shirts",
+      "basis": "garment",
+      "fit": "relaxed",
+      "region": "IN",
+      "unit": "in",
+      "note": "Relaxed-fit shirts. Garment measurements.",
+      "sizes": [
+        {
+          "label": "XS",
+          "alt": [
+            "38"
+          ],
+          "chest": 41,
+          "waist": 40,
+          "shoulder": 18
+        },
+        {
+          "label": "S",
+          "alt": [
+            "39"
+          ],
+          "chest": 44,
+          "waist": 43,
+          "shoulder": 19
+        },
+        {
+          "label": "M",
+          "alt": [
+            "40"
+          ],
+          "chest": 47,
+          "waist": 46,
+          "shoulder": 20
+        },
+        {
+          "label": "L",
+          "alt": [
+            "42"
+          ],
+          "chest": 50,
+          "waist": 49,
+          "shoulder": 21
+        },
+        {
+          "label": "XL",
+          "alt": [
+            "44"
+          ],
+          "chest": 53,
+          "waist": 52,
+          "shoulder": 22
+        },
+        {
+          "label": "XXL",
+          "alt": [
+            "46"
+          ],
+          "chest": 56,
+          "waist": 55,
+          "shoulder": 23
+        },
+        {
+          "label": "XXXL",
+          "alt": [
+            "48"
+          ],
+          "chest": 59,
+          "waist": 58,
+          "shoulder": 24
+        }
+      ],
+      "source": {
+        "url": "https://basicslife.com/pages/size-guide",
+        "verified_on": "2026-11-06"
+      }
+    },
+    {
+      "category": "men_tops",
+      "basis": "garment",
+      "region": "IN",
+      "unit": "in",
+      "note": "T-shirts and polos, regular fit. Garment measurements.",
+      "sizes": [
+        {
+          "label": "XS",
+          "alt": [
+            "38"
+          ],
+          "chest": 35.5,
+          "waist": 34,
+          "shoulder": 13
+        },
+        {
+          "label": "S",
+          "alt": [
+            "39"
+          ],
+          "chest": 38,
+          "waist": 36,
+          "shoulder": 14.5
+        },
+        {
+          "label": "M",
+          "alt": [
+            "40"
+          ],
+          "chest": 40,
+          "waist": 38.5,
+          "shoulder": 15.75
+        },
+        {
+          "label": "L",
+          "alt": [
+            "42"
+          ],
+          "chest": 42.5,
+          "waist": 41,
+          "shoulder": 17
+        },
+        {
+          "label": "XL",
+          "alt": [
+            "44"
+          ],
+          "chest": 45,
+          "waist": 43,
+          "shoulder": 18
+        },
+        {
+          "label": "XXL",
+          "alt": [
+            "46"
+          ],
+          "chest": 47,
+          "waist": 45.5,
+          "shoulder": 19.5
+        },
+        {
+          "label": "XXXL",
+          "alt": [
+            "48"
+          ],
+          "chest": 49,
+          "waist": 48,
+          "shoulder": 20.75
+        }
+      ],
+      "source": {
+        "url": "https://basicslife.com/pages/size-guide",
+        "verified_on": "2026-11-06"
+      }
+    },
+    {
+      "category": "men_bottoms",
+      "basis": "garment",
+      "fit": "slim",
+      "region": "IN",
+      "unit": "in",
+      "note": "Tapered-fit trousers. Garment measurements.",
+      "sizes": [
+        {
+          "label": "28",
+          "waist": 30.25
+        },
+        {
+          "label": "30",
+          "waist": 32.25
+        },
+        {
+          "label": "32",
+          "waist": 34
+        },
+        {
+          "label": "34",
+          "waist": 36
+        },
+        {
+          "label": "36",
+          "waist": 37.75
+        },
+        {
+          "label": "38",
+          "waist": 39.75
+        },
+        {
+          "label": "40",
+          "waist": 41.75
+        },
+        {
+          "label": "42",
+          "waist": 43.75
+        }
+      ],
+      "source": {
+        "url": "https://basicslife.com/pages/size-guide",
+        "verified_on": "2026-11-06"
+      }
+    }
+  ]
+}

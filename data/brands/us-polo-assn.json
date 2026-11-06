@@ -1,0 +1,101 @@
+{
+  "id": "us-polo-assn",
+  "name": "U.S. Polo Assn.",
+  "origin": "international",
+  "aliases": [
+    "us polo assn",
+    "u s polo assn",
+    "us polo",
+    "uspa"
+  ],
+  "domains": [
+    "uspoloassn.in"
+  ],
+  "charts": [
+    {
+      "category": "men_tops",
+      "basis": "garment",
+      "region": "IN",
+      "unit": "cm",
+      "note": "Regular-fit polo shirts, from the product size chart on the brand's Indian site.",
+      "sizes": [
+        {
+          "label": "XS",
+          "alt": [
+            "38"
+          ],
+          "shoulder": 40.6,
+          "chest": 96.5
+        },
+        {
+          "label": "S",
+          "alt": [
+            "39"
+          ],
+          "shoulder": 43.2,
+          "chest": 100
+        },
+        {
+          "label": "M",
+          "alt": [
+            "40"
+          ],
+          "shoulder": 45.7,
+          "chest": 105
+        },
+        {
+          "label": "L",
+          "alt": [
+            "42"
+          ],
+          "shoulder": 48.3,
+          "chest": 114
+        },
+        {
+          "label": "XL",
+          "alt": [
+            "44"
+          ],
+          "shoulder": 50.8,
+          "chest": 121
+        },
+        {
+          "label": "XXL",
+          "alt": [
+            "46"
+          ],
+          "shoulder": 53.3,
+          "chest": 127
+        },
+        {
+          "label": "XXXL",
+          "alt": [
+            "48"
+          ],
+          "shoulder": 55.9,
+          "chest": 133
+        },
+        {
+          "label": "4XL",
+          "alt": [
+            "50"
+          ],
+          "shoulder": 58.4,
+          "chest": 138
+        },
+        {
+          "label": "5XL",
+          "alt": [
+            "52"
+          ],
+          "shoulder": 61,
+          "chest": 141
+        }
+      ],
+      "source": {
+        "url": "https://uspoloassn.in/products/menswear-solid-regular-fit-polo-shirt-hkb0wjs0mjx",
+        "verified_on": "2026-11-06"
+      }
+    }
+  ]
+}

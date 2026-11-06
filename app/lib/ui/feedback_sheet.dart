@@ -77,6 +77,7 @@ class _FeedbackSheetState extends State<_FeedbackSheet> {
                     ? null
                     : () {
                         final state = AppScope.read(context);
+                        final messenger = ScaffoldMessenger.of(context);
                         state.active.addFeedback(
                           FitFeedback(
                             brandId: widget.brand.id,
@@ -90,7 +91,7 @@ class _FeedbackSheetState extends State<_FeedbackSheet> {
                         );
                         state.changed();
                         Navigator.pop(context);
-                        ScaffoldMessenger.of(context).showSnackBar(
+                        messenger.showSnackBar(
                           const SnackBar(
                               content: Text('Thanks. SizeCheck will use this '
                                   'next time for this brand.')),
