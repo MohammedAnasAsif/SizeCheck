@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "io.github.mohammedanasasif" "\0"
-            VALUE "FileDescription", "sizecheck" "\0"
+            VALUE "CompanyName", "SizeCheck contributors" "\0"
+            VALUE "FileDescription", "SizeCheck" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
             VALUE "InternalName", "sizecheck" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2026 io.github.mohammedanasasif. All rights reserved." "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2026 SizeCheck contributors. Apache-2.0." "\0"
             VALUE "OriginalFilename", "sizecheck.exe" "\0"
-            VALUE "ProductName", "sizecheck" "\0"
+            VALUE "ProductName", "SizeCheck" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

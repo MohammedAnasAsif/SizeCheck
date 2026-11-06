@@ -1,0 +1,8 @@
+node_modules/
+.dart_tool/
+build/
+.idea/
+.vscode/
+*.iml
+.DS_Store
+packages/size_engine/pubspec.lock

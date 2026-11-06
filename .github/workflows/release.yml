@@ -1,0 +1,179 @@
+# Builds the Android and Windows apps and publishes them as a GitHub Release.
+# Start it by pushing a version tag:   git tag v0.1.0 && git push origin v0.1.0
+# Android signing uses repository secrets when present (see docs/RELEASING.md).
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing tag to build, e.g. v0.1.0
+        required: true
+
+permissions:
+  contents: write
+
+env:
+  FLUTTER_VERSION: 3.47.9
+
+jobs:
+  version:
+    runs-on: ubuntu-latest
+    outputs:
+      tag: ${{ steps.v.outputs.tag }}
+      version: ${{ steps.v.outputs.version }}
+    steps:
+      - id: v
+        shell: bash
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "version=${TAG#v}" >> "$GITHUB_OUTPUT"
+
+  android:
+    needs: version
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.tag }}
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - name: Set up release signing key
+        id: signing
+        env:
+          KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "signed=false" >> "$GITHUB_OUTPUT"
+            echo "::warning::No signing key secrets set. The APK is signed with a temporary debug key."
+            exit 0
+          fi
+          echo "$KEYSTORE_BASE64" | base64 -d > app/android/app/release.jks
+          cat > app/android/key.properties <<EOF
+          storeFile=release.jks
+          storePassword=$KEYSTORE_PASSWORD
+          keyAlias=$KEY_ALIAS
+          keyPassword=$KEY_PASSWORD
+          EOF
+          echo "signed=true" >> "$GITHUB_OUTPUT"
+      - run: flutter pub get
+        working-directory: app
+      - name: Build
+        working-directory: app
+        run: |
+          V=${{ needs.version.outputs.version }}
+          N=${{ github.run_number }}
+          flutter build apk --release --build-name=$V --build-number=$N
+          flutter build apk --release --split-per-abi --build-name=$V --build-number=$N
+          flutter build appbundle --release --build-name=$V --build-number=$N
+      - name: Collect files
+        run: |
+          V=${{ needs.version.outputs.version }}
+          mkdir -p out
+          A=app/build/app/outputs
+          cp $A/flutter-apk/app-release.apk out/SizeCheck-$V-android.apk
+          cp $A/flutter-apk/app-arm64-v8a-release.apk out/SizeCheck-$V-android-arm64.apk
+          cp $A/flutter-apk/app-armeabi-v7a-release.apk out/SizeCheck-$V-android-arm32.apk
+          cp $A/flutter-apk/app-x86_64-release.apk out/SizeCheck-$V-android-x86_64.apk
+          if [ "${{ steps.signing.outputs.signed }}" = "true" ]; then
+            cp $A/bundle/release/app-release.aab out/SizeCheck-$V-android.aab
+          fi
+          echo "${{ steps.signing.outputs.signed }}" > out/android-signed.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android
+          path: out/
+
+  windows:
+    needs: version
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.tag }}
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+      - run: flutter pub get
+        working-directory: app
+      - run: flutter build windows --release --build-name=${{ needs.version.outputs.version }} --build-number=${{ github.run_number }}
+        working-directory: app
+      - name: Zip and build installer
+        shell: pwsh
+        run: |
+          $v = "${{ needs.version.outputs.version }}"
+          New-Item -ItemType Directory -Force -Path out | Out-Null
+          $release = Resolve-Path app/build/windows/x64/runner/Release
+          Compress-Archive -Path "$release\*" -DestinationPath "out/SizeCheck-$v-windows-portable.zip"
+          $iscc = "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe"
+          if (-not (Test-Path $iscc)) {
+            choco install innosetup -y --no-progress
+          }
+          $out = Resolve-Path out
+          & $iscc "/DAppVersion=$v" "/DSourceDir=$release" "/DOutputDir=$out" app/windows/installer/sizecheck.iss
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: windows
+          path: out/
+
+  publish:
+    needs: [version, android, windows]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ needs.version.outputs.tag }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+      - name: Write release notes
+        run: |
+          V=${{ needs.version.outputs.version }}
+          SIGNED=$(cat dist/android-signed.txt)
+          rm dist/android-signed.txt
+          cp app/assets/data/sizecheck_data.json dist/sizecheck_data-$V.json
+          BRANDS=$(node -e "console.log(require('./dist/sizecheck_data-$V.json').brand_count)")
+          {
+            echo "## Download"
+            echo
+            echo "**Android:** \`SizeCheck-$V-android.apk\` works on every phone. The \`-arm64\` file is smaller and fits most phones from the last 6 years."
+            echo
+            echo "**Windows 10/11:** \`SizeCheck-$V-windows-setup.exe\` installs it (no admin rights needed). Or unzip \`SizeCheck-$V-windows-portable.zip\` and run \`sizecheck.exe\`."
+            echo
+            echo "Size charts included: **$BRANDS brands**. The app downloads newer charts automatically."
+            echo
+            if [ "$SIGNED" != "true" ]; then
+              echo "> **Test build:** this Android APK is signed with a temporary key. Uninstall it before installing a later version."
+              echo
+            fi
+            echo "Windows may show a SmartScreen warning because the app is not code-signed yet: choose *More info → Run anyway*."
+            echo
+            echo "### Checksums (SHA-256)"
+            echo '```'
+            (cd dist && sha256sum *)
+            echo '```'
+          } > notes.md
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.version.outputs.tag }}
+          name: SizeCheck ${{ needs.version.outputs.version }}
+          body_path: notes.md
+          files: dist/*
+          prerelease: ${{ startsWith(needs.version.outputs.version, '0.') }}

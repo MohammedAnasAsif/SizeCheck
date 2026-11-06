@@ -1,0 +1,13 @@
+name: size_engine
+description: >-
+  SizeCheck's matching engine. Turns one set of body measurements into the
+  right size for any brand's size chart. Pure Dart, no Flutter needed.
+version: 0.1.0
+publish_to: none
+
+environment:
+  sdk: ^3.5.0
+
+dev_dependencies:
+  lints: ^5.0.0
+  test: ^1.25.0

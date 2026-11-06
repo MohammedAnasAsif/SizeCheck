@@ -1,30 +1,59 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:size_engine/size_engine.dart';
+import 'package:sizecheck/app_state.dart';
 import 'package:sizecheck/main.dart';
 
+// Made-up test data, not a real brand.
+final bundle = <String, dynamic>{
+  'format': 1,
+  'version': 'test',
+  'brand_count': 1,
+  'brands': [
+    {
+      'id': 'testbrand',
+      'name': 'Testbrand',
+      'origin': 'indian',
+      'aliases': ['testbrand'],
+      'domains': ['testbrand.example'],
+      'charts': [
+        {
+          'category': 'men_tops',
+          'basis': 'body',
+          'unit': 'cm',
+          'sizes': [
+            {'label': 'S', 'chest': [86, 91]},
+            {'label': 'M', 'chest': [91, 96]},
+            {'label': 'L', 'chest': [96, 101]},
+          ],
+          'source': {
+            'url': 'https://testbrand.example/size',
+            'verified_on': '2026-11-06'
+          },
+        },
+      ],
+    },
+  ],
+  'typical': [],
+};
+
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('shows the brand list and recommends a size', (tester) async {
+    final state = AppState.inMemory(bundle);
+    await tester.pumpWidget(SizeCheckApp(state: state));
+    await tester.pumpAndSettle();
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text('SizeCheck'), findsWidgets);
+    expect(find.text('Testbrand'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.tap(find.text('Testbrand'));
+    await tester.pumpAndSettle();
+    expect(find.text('Add a measurement to get your size'), findsOneWidget);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    state.active.setMeasurement(Measure.chest, 93);
+    state.changed();
+    await tester.pumpAndSettle();
+    expect(find.text('M'), findsWidgets);
+    expect(find.text('Good match'), findsOneWidget);
   });
 }
