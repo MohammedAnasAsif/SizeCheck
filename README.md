@@ -12,7 +12,7 @@ SizeCheck is a free, open-source app for Android and Windows. You enter your mea
 
 ## Download
 
-Get the latest version from the [Releases page](https://github.com/MohammedAnasAsif/SizeCheck/releases/latest):
+Get the latest version from the [Releases page](https://github.com/MohammedAnasAsif/SizeCheck/releases):
 
 | Platform | File |
 |---|---|
