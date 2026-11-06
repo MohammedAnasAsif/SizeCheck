@@ -5,7 +5,7 @@ Releases are built entirely by GitHub Actions ([release.yml](../.github/workflow
 ## Make a release
 
 1. Make sure CI is green on `main`.
-2. Tag and push:
+2. Tag and push (or run **Release** from the Actions tab and enter the tag, e.g. `v0.2.0`):
 
    ```bash
    git tag v0.2.0

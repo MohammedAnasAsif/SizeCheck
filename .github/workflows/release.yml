@@ -1,5 +1,7 @@
 # Builds the Android and Windows apps and publishes them as a GitHub Release.
-# Start it by pushing a version tag:   git tag v0.1.0 && git push origin v0.1.0
+# Start it by pushing a version tag (git tag v0.1.0 && git push origin v0.1.0),
+# or from the Actions tab: Release -> Run workflow -> enter v0.1.0. A manual run
+# builds the latest main and creates the tag.
 # Android signing uses repository secrets when present (see docs/RELEASING.md).
 name: Release
 
@@ -9,7 +11,7 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: Existing tag to build, e.g. v0.1.0
+        description: Version tag to release, e.g. v0.1.0
         required: true
 
 permissions:
@@ -38,7 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: ${{ needs.version.outputs.tag }}
+          ref: ${{ github.event_name == 'push' && needs.version.outputs.tag || github.sha }}
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
@@ -103,7 +105,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: ${{ needs.version.outputs.tag }}
+          ref: ${{ github.event_name == 'push' && needs.version.outputs.tag || github.sha }}
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: ${{ env.FLUTTER_VERSION }}
@@ -138,7 +140,7 @@ jobs:
     steps:
       - uses: actions/checkout@v5
         with:
-          ref: ${{ needs.version.outputs.tag }}
+          ref: ${{ github.event_name == 'push' && needs.version.outputs.tag || github.sha }}
       - uses: actions/download-artifact@v4
         with:
           path: dist
@@ -173,6 +175,7 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ needs.version.outputs.tag }}
+          target_commitish: ${{ github.sha }}
           name: SizeCheck ${{ needs.version.outputs.version }}
           body_path: notes.md
           files: dist/*
