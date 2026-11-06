@@ -13,14 +13,17 @@ Future<void> showFeedbackSheet(
     context: context,
     isScrollControlled: true,
     showDragHandle: true,
-    builder: (_) => _FeedbackSheet(
-        brand: brand, chart: chart, recommended: recommended),
+    builder: (_) =>
+        _FeedbackSheet(brand: brand, chart: chart, recommended: recommended),
   );
 }
 
 class _FeedbackSheet extends StatefulWidget {
-  const _FeedbackSheet(
-      {required this.brand, required this.chart, required this.recommended});
+  const _FeedbackSheet({
+    required this.brand,
+    required this.chart,
+    required this.recommended,
+  });
 
   final Brand brand;
   final SizeChart chart;
@@ -50,25 +53,33 @@ class _FeedbackSheetState extends State<_FeedbackSheet> {
             const SizedBox(height: 16),
             Text('Size you bought', style: text.titleSmall),
             const SizedBox(height: 8),
-            Wrap(spacing: 8, runSpacing: 8, children: [
-              for (final s in widget.chart.sizes)
-                ChoiceChip(
-                  label: Text(s.label),
-                  selected: s.label == _size,
-                  onSelected: (_) => setState(() => _size = s.label),
-                ),
-            ]),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final s in widget.chart.sizes)
+                  ChoiceChip(
+                    label: Text(s.label),
+                    selected: s.label == _size,
+                    onSelected: (_) => setState(() => _size = s.label),
+                  ),
+              ],
+            ),
             const SizedBox(height: 16),
             Text('Fit', style: text.titleSmall),
             const SizedBox(height: 8),
-            Wrap(spacing: 8, runSpacing: 8, children: [
-              for (final o in FitOutcome.values)
-                ChoiceChip(
-                  label: Text(o.label),
-                  selected: o == _outcome,
-                  onSelected: (_) => setState(() => _outcome = o),
-                ),
-            ]),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                for (final o in FitOutcome.values)
+                  ChoiceChip(
+                    label: Text(o.label),
+                    selected: o == _outcome,
+                    onSelected: (_) => setState(() => _outcome = o),
+                  ),
+              ],
+            ),
             const SizedBox(height: 20),
             SizedBox(
               width: double.infinity,
@@ -93,18 +104,18 @@ class _FeedbackSheetState extends State<_FeedbackSheet> {
                         Navigator.pop(context);
                         messenger.showSnackBar(
                           const SnackBar(
-                              content: Text('Thanks. SizeCheck will use this '
-                                  'next time for this brand.')),
+                            content: Text(
+                              'Thanks. SizeCheck will use this '
+                              'next time for this brand.',
+                            ),
+                          ),
                         );
                       },
                 child: const Text('Save'),
               ),
             ),
             const SizedBox(height: 8),
-            Text(
-              'Saved only on this device.',
-              style: text.bodySmall,
-            ),
+            Text('Saved only on this device.', style: text.bodySmall),
           ],
         ),
       ),

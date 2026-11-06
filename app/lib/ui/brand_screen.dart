@@ -25,10 +25,10 @@ class _BrandScreenState extends State<BrandScreen> {
     int rank(Category c) => audience == Audience.unisex
         ? 0
         : c.audience == audience
-            ? 0
-            : c.audience == Audience.unisex
-                ? 1
-                : 2;
+        ? 0
+        : c.audience == Audience.unisex
+        ? 1
+        : 2;
     cats.sort((a, b) => rank(a).compareTo(rank(b)));
     return cats;
   }
@@ -46,10 +46,12 @@ class _BrandScreenState extends State<BrandScreen> {
     final profile = state.active;
     final cats = _ordered(brand, profile.audience);
     final forMe = cats
-        .where((c) =>
-            profile.audience == Audience.unisex ||
-            c.audience == profile.audience ||
-            c.audience == Audience.unisex)
+        .where(
+          (c) =>
+              profile.audience == Audience.unisex ||
+              c.audience == profile.audience ||
+              c.audience == Audience.unisex,
+        )
         .toList();
     final visible = _showAll || forMe.isEmpty ? cats : forMe;
 
@@ -70,12 +72,14 @@ class _BrandScreenState extends State<BrandScreen> {
             PopupMenuButton<String>(
               onSelected: (v) async {
                 if (v == 'add') {
-                  await Navigator.of(context).push(MaterialPageRoute(
-                    builder: (_) => AddChartScreen(
-                      initialBrandName: brand.name,
-                      existingBrandId: brand.id,
+                  await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => AddChartScreen(
+                        initialBrandName: brand.name,
+                        existingBrandId: brand.id,
+                      ),
                     ),
-                  ));
+                  );
                 } else if (v == 'delete') {
                   state.deleteUserBrand(brand);
                   if (context.mounted) Navigator.pop(context);
@@ -83,8 +87,13 @@ class _BrandScreenState extends State<BrandScreen> {
               },
               itemBuilder: (_) => const [
                 PopupMenuItem(
-                    value: 'add', child: Text('Add another category')),
-                PopupMenuItem(value: 'delete', child: Text('Delete this brand')),
+                  value: 'add',
+                  child: Text('Add another category'),
+                ),
+                PopupMenuItem(
+                  value: 'delete',
+                  child: Text('Delete this brand'),
+                ),
               ],
             ),
         ],
@@ -96,8 +105,10 @@ class _BrandScreenState extends State<BrandScreen> {
           child: ListView(
             padding: const EdgeInsets.fromLTRB(16, 4, 16, 32),
             children: [
-              Text('For ${profile.name}',
-                  style: Theme.of(context).textTheme.bodyMedium),
+              Text(
+                'For ${profile.name}',
+                style: Theme.of(context).textTheme.bodyMedium,
+              ),
               const SizedBox(height: 12),
               Wrap(
                 spacing: 8,
@@ -122,7 +133,9 @@ class _BrandScreenState extends State<BrandScreen> {
                 const Text('No size chart for this category yet.')
               else
                 ResultCard(
-                  key: ValueKey('${brand.id}-${chart.category.id}-${profile.id}'),
+                  key: ValueKey(
+                    '${brand.id}-${chart.category.id}-${profile.id}',
+                  ),
                   brand: brand,
                   chart: chart,
                 ),

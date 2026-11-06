@@ -3,27 +3,45 @@ import 'package:test/test.dart';
 
 // Made-up charts for testing; not any real brand's numbers.
 SizeChart tops({ChartBasis basis = ChartBasis.body}) => SizeChart.fromJson({
-      'category': 'men_tops',
-      'basis': basis.name,
-      'unit': 'cm',
-      'sizes': [
-        {'label': 'S', 'chest': [86, 91], 'waist': [71, 76]},
-        {'label': 'M', 'chest': [91, 96], 'waist': [76, 81]},
-        {'label': 'L', 'chest': [96, 101], 'waist': [81, 86]},
-        {'label': 'XL', 'chest': [101, 106], 'waist': [86, 91]},
-      ],
-    })!;
+  'category': 'men_tops',
+  'basis': basis.name,
+  'unit': 'cm',
+  'sizes': [
+    {
+      'label': 'S',
+      'chest': [86, 91],
+      'waist': [71, 76],
+    },
+    {
+      'label': 'M',
+      'chest': [91, 96],
+      'waist': [76, 81],
+    },
+    {
+      'label': 'L',
+      'chest': [96, 101],
+      'waist': [81, 86],
+    },
+    {
+      'label': 'XL',
+      'chest': [101, 106],
+      'waist': [86, 91],
+    },
+  ],
+})!;
 
-BodyProfile person(Map<Measure, double> m,
-        {FitPreference fit = FitPreference.regular}) =>
-    BodyProfile(id: 't', name: 'T', measurements: m, fitPreference: fit);
+BodyProfile person(
+  Map<Measure, double> m, {
+  FitPreference fit = FitPreference.regular,
+}) => BodyProfile(id: 't', name: 'T', measurements: m, fitPreference: fit);
 
 void main() {
   group('recommend', () {
     test('picks the size whose ranges contain the measurements', () {
       final r = Recommender.recommend(
-          profile: person({Measure.chest: 98, Measure.waist: 83}),
-          chart: tops());
+        profile: person({Measure.chest: 98, Measure.waist: 83}),
+        chart: tops(),
+      );
       expect(r.best!.size.label, 'L');
       expect(r.confidence, Confidence.high);
       expect(r.alternative, isNull);
@@ -31,24 +49,29 @@ void main() {
 
     test('flags being between two sizes', () {
       final r = Recommender.recommend(
-          profile: person({Measure.chest: 96.2, Measure.waist: 81.2}),
-          chart: tops());
+        profile: person({Measure.chest: 96.2, Measure.waist: 81.2}),
+        chart: tops(),
+      );
       expect(r.isBetweenSizes, isTrue);
       expect({r.best!.size.label, r.alternative!.size.label}, {'M', 'L'});
     });
 
     test('a relaxed preference picks the larger size on a near tie', () {
       final r = Recommender.recommend(
-          profile: person({Measure.chest: 96, Measure.waist: 81},
-              fit: FitPreference.relaxed),
-          chart: tops());
+        profile: person({
+          Measure.chest: 96,
+          Measure.waist: 81,
+        }, fit: FitPreference.relaxed),
+        chart: tops(),
+      );
       expect(r.best!.size.label, 'L');
     });
 
     test('says when the person is bigger than the largest size', () {
       final r = Recommender.recommend(
-          profile: person({Measure.chest: 125, Measure.waist: 110}),
-          chart: tops());
+        profile: person({Measure.chest: 125, Measure.waist: 110}),
+        chart: tops(),
+      );
       expect(r.best!.size.label, 'XL');
       expect(r.outOfRange, OutOfRange.largerThanLargest);
       expect(r.confidence, Confidence.low);
@@ -56,19 +79,25 @@ void main() {
 
     test('returns no result when nothing overlaps', () {
       final r = Recommender.recommend(
-          profile: person({Measure.inseam: 80}), chart: tops());
+        profile: person({Measure.inseam: 80}),
+        chart: tops(),
+      );
       expect(r.hasResult, isFalse);
       expect(r.missing.first, Measure.chest);
     });
 
-    test('lists missing measurements and lowers confidence without the main one',
-        () {
-      final r = Recommender.recommend(
-          profile: person({Measure.waist: 78}), chart: tops());
-      expect(r.best!.size.label, 'M');
-      expect(r.missing, [Measure.chest]);
-      expect(r.confidence, Confidence.low);
-    });
+    test(
+      'lists missing measurements and lowers confidence without the main one',
+      () {
+        final r = Recommender.recommend(
+          profile: person({Measure.waist: 78}),
+          chart: tops(),
+        );
+        expect(r.best!.size.label, 'M');
+        expect(r.missing, [Measure.chest]);
+        expect(r.confidence, Confidence.low);
+      },
+    );
 
     test('garment charts are converted to body sizes using ease', () {
       // Garment chest 100 cm in a regular-fit top fits a ~90 cm body.
@@ -83,7 +112,9 @@ void main() {
         ],
       })!;
       final r = Recommender.recommend(
-          profile: person({Measure.chest: 92}), chart: garment);
+        profile: person({Measure.chest: 92}),
+        chart: garment,
+      );
       expect(r.best!.size.label, 'M');
     });
 
@@ -108,8 +139,7 @@ void main() {
           {'label': 'M', 'chest': 94},
           {'label': 'L', 'chest': 100},
         ],
-      })!
-          .withExpandedPoints();
+      })!.withExpandedPoints();
       expect(c.sizes[0].ranges[Measure.chest], const Range(85, 91));
       expect(c.sizes[1].ranges[Measure.chest], const Range(91, 97));
       expect(c.sizes[2].ranges[Measure.chest], const Range(97, 103));
@@ -132,8 +162,11 @@ void main() {
   group('feedback learning', () {
     test('"tight" on the recommended size moves the next pick up', () {
       final p = person({Measure.chest: 95.5, Measure.waist: 80.5});
-      final before =
-          Recommender.recommend(profile: p, chart: tops(), brandId: 'b');
+      final before = Recommender.recommend(
+        profile: p,
+        chart: tops(),
+        brandId: 'b',
+      );
       expect(before.best!.size.label, 'M');
       p.addFeedback(
         FitFeedback(
@@ -147,8 +180,11 @@ void main() {
         recommendedLabel: 'M',
       );
       expect(p.offsetFor('b', Category.menTops), 1.5);
-      final after =
-          Recommender.recommend(profile: p, chart: tops(), brandId: 'b');
+      final after = Recommender.recommend(
+        profile: p,
+        chart: tops(),
+        brandId: 'b',
+      );
       expect(after.best!.size.label, 'L');
       expect(after.offsetApplied, 1.5);
       // Other brands are not affected.
@@ -175,14 +211,16 @@ void main() {
     test('offset is capped', () {
       final p = person({Measure.chest: 93});
       for (var i = 0; i < 10; i++) {
-        p.addFeedback(FitFeedback(
-          brandId: 'b',
-          brandName: 'B',
-          category: Category.menTops,
-          sizeLabel: 'M',
-          outcome: FitOutcome.tooSmall,
-          date: DateTime(2026, 11, 6),
-        ));
+        p.addFeedback(
+          FitFeedback(
+            brandId: 'b',
+            brandName: 'B',
+            category: Category.menTops,
+            sizeLabel: 'M',
+            outcome: FitOutcome.tooSmall,
+            date: DateTime(2026, 11, 6),
+          ),
+        );
       }
       expect(p.offsetFor('b', Category.menTops), BodyProfile.maxOffset);
     });

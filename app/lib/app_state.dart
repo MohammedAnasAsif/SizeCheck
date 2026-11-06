@@ -83,14 +83,13 @@ class AppState extends ChangeNotifier {
   }
 
   Future<void> _save() async => _storage?.writeJson(_stateFile, {
-        'format': 1,
-        'profiles': [for (final p in profiles) p.toJson()],
-        'user_brands': [for (final b in userBrands) b.toJson()],
-        'active': _activeId,
-        'units': units == UnitSystem.inches ? 'in' : 'cm',
-        if (lastDataCheck != null)
-          'data_checked': lastDataCheck!.toIso8601String(),
-      });
+    'format': 1,
+    'profiles': [for (final p in profiles) p.toJson()],
+    'user_brands': [for (final b in userBrands) b.toJson()],
+    'active': _activeId,
+    'units': units == UnitSystem.inches ? 'in' : 'cm',
+    if (lastDataCheck != null) 'data_checked': lastDataCheck!.toIso8601String(),
+  });
 
   /// Call after changing a profile or brand in place.
   void changed() {
@@ -99,9 +98,9 @@ class AppState extends ChangeNotifier {
   }
 
   BodyProfile get active => profiles.firstWhere(
-        (p) => p.id == _activeId,
-        orElse: () => profiles.first,
-      );
+    (p) => p.id == _activeId,
+    orElse: () => profiles.first,
+  );
 
   void setActive(BodyProfile p) {
     _activeId = p.id;
@@ -210,7 +209,7 @@ class AppState extends ChangeNotifier {
 /// Makes [AppState] available to every screen.
 class AppScope extends InheritedNotifier<AppState> {
   const AppScope({super.key, required AppState state, required super.child})
-      : super(notifier: state);
+    : super(notifier: state);
 
   static AppState of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<AppScope>()!.notifier!;

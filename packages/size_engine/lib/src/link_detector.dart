@@ -78,7 +78,8 @@ class LinkDetector {
     final uri = extractUri(text);
     if (uri == null || uri.host.isEmpty) return null;
     final host = _cleanHost(uri.host);
-    final pathText = Uri.decodeComponent('${uri.path} ${uri.query}').toLowerCase();
+    final pathText = Uri.decodeComponent('${uri.path} ${uri.query}')
+        .toLowerCase();
     final tokens = pathText
         .split(RegExp(r'[^a-z0-9]+'))
         .where((t) => t.isNotEmpty)
@@ -89,7 +90,11 @@ class LinkDetector {
       for (final d in b.domains) {
         if (_hostMatches(host, d)) {
           return DetectedProduct(
-              brand: b, category: category, host: host, viaMarketplace: false);
+            brand: b,
+            category: category,
+            host: host,
+            viaMarketplace: false,
+          );
         }
       }
     }
@@ -97,7 +102,11 @@ class LinkDetector {
     final isMarketplace = marketplaces.any((d) => _hostMatches(host, d));
     if (!isMarketplace) {
       return DetectedProduct(
-          brand: null, category: category, host: host, viaMarketplace: false);
+        brand: null,
+        category: category,
+        host: host,
+        viaMarketplace: false,
+      );
     }
 
     // Brand names usually come first in product links (e.g. myntra.com/
@@ -116,7 +125,11 @@ class LinkDetector {
       }
     }
     return DetectedProduct(
-        brand: found, category: category, host: host, viaMarketplace: true);
+      brand: found,
+      category: category,
+      host: host,
+      viaMarketplace: true,
+    );
   }
 
   static int _indexOfSequence(List<String> tokens, List<String> seq) {
@@ -147,18 +160,72 @@ class LinkDetector {
     final men = !women && set.any(_men.contains);
     bool has(List<String> words) => words.any(set.contains);
 
-    if (has(['shoes', 'sneakers', 'footwear', 'sandals', 'heels', 'boots', 'loafers', 'flats'])) {
+    if (has([
+      'shoes',
+      'sneakers',
+      'footwear',
+      'sandals',
+      'heels',
+      'boots',
+      'loafers',
+      'flats',
+    ])) {
       return women ? Category.womenFootwear : Category.menFootwear;
     }
-    if (has(['dress', 'dresses', 'gown', 'jumpsuit'])) return Category.womenDresses;
-    if (has(['jeans', 'trousers', 'pants', 'chinos', 'joggers', 'shorts', 'leggings', 'palazzos', 'skirt', 'skirts', 'trackpants'])) {
-      return women ? Category.womenBottoms : men ? Category.menBottoms : Category.unisexBottoms;
+    if (has(['dress', 'dresses', 'gown', 'jumpsuit']))
+      return Category.womenDresses;
+    if (has([
+      'jeans',
+      'trousers',
+      'pants',
+      'chinos',
+      'joggers',
+      'shorts',
+      'leggings',
+      'palazzos',
+      'skirt',
+      'skirts',
+      'trackpants',
+    ])) {
+      return women
+          ? Category.womenBottoms
+          : men
+          ? Category.menBottoms
+          : Category.unisexBottoms;
     }
-    if (!women && has(['shirt', 'shirts']) && !has(['tshirt', 'tshirts', 't'])) {
+    if (!women &&
+        has(['shirt', 'shirts']) &&
+        !has(['tshirt', 'tshirts', 't'])) {
       return Category.menShirts;
     }
-    if (has(['tshirt', 'tshirts', 'tee', 'tees', 'top', 'tops', 'kurta', 'kurtas', 'kurti', 'kurtis', 'sweatshirt', 'sweatshirts', 'hoodie', 'hoodies', 'polo', 'shirt', 'shirts', 'blouse', 'jacket', 'jackets', 'sweater'])) {
-      return women ? Category.womenTops : men ? Category.menTops : Category.unisexTops;
+    if (has([
+      'tshirt',
+      'tshirts',
+      'tee',
+      'tees',
+      'top',
+      'tops',
+      'kurta',
+      'kurtas',
+      'kurti',
+      'kurtis',
+      'sweatshirt',
+      'sweatshirts',
+      'hoodie',
+      'hoodies',
+      'polo',
+      'shirt',
+      'shirts',
+      'blouse',
+      'jacket',
+      'jackets',
+      'sweater',
+    ])) {
+      return women
+          ? Category.womenTops
+          : men
+          ? Category.menTops
+          : Category.unisexTops;
     }
     return null;
   }

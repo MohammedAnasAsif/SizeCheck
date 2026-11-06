@@ -39,7 +39,8 @@ class _AddChartScreenState extends State<AddChartScreen> {
   ChartUnit? _unit;
   String? _error;
 
-  static const _template = 'Size\tChest\tWaist\tHip\n'
+  static const _template =
+      'Size\tChest\tWaist\tHip\n'
       'S\t\t\t\n'
       'M\t\t\t\n'
       'L\t\t\t\n'
@@ -73,10 +74,16 @@ class _AddChartScreenState extends State<AddChartScreen> {
     final factor = _unit == ChartUnit.inches ? cmPerInch : 1 / cmPerInch;
     return [
       for (final s in p.sizes)
-        SizeRow(label: s.label, ranges: {
-          for (final e in s.ranges.entries)
-            e.key: Range(round1(e.value.min * factor), round1(e.value.max * factor)),
-        }),
+        SizeRow(
+          label: s.label,
+          ranges: {
+            for (final e in s.ranges.entries)
+              e.key: Range(
+                round1(e.value.min * factor),
+                round1(e.value.max * factor),
+              ),
+          },
+        ),
     ];
   }
 
@@ -105,30 +112,33 @@ class _AddChartScreenState extends State<AddChartScreen> {
       chart: _chart(),
       existingBrandId: widget.existingBrandId,
     );
-    Navigator.of(context).pushReplacement(MaterialPageRoute(
-      builder: (_) =>
-          BrandScreen(brandId: brand.id, initialCategory: _category),
-    ));
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(
+        builder: (_) =>
+            BrandScreen(brandId: brand.id, initialCategory: _category),
+      ),
+    );
   }
 
   Future<void> _share() async {
     final name = _name.text.trim();
     final chart = _chart();
-    final json = const JsonEncoder.withIndent('  ').convert({
-      'name': name,
-      'chart': chart.toJson(),
-    });
-    final body = 'Please add this size chart to SizeCheck.\n\n'
+    final json = const JsonEncoder.withIndent('  ')
+        .convert({'name': name, 'chart': chart.toJson()});
+    final body =
+        'Please add this size chart to SizeCheck.\n\n'
         'Brand: $name\n'
         'Category: ${chart.category.label}\n'
         'Chart lists: ${chart.basis == ChartBasis.body ? 'body measurements' : 'garment measurements'}\n'
         'Copied from: ${chart.source?.url ?? '(please add the link to the brand\'s size chart)'}\n\n'
         '```json\n$json\n```\n';
-    final uri = Uri.parse('$repoUrl/issues/new').replace(queryParameters: {
-      'title': 'Add brand: $name (${chart.category.label})',
-      'labels': 'brand-data',
-      'body': body,
-    });
+    final uri = Uri.parse('$repoUrl/issues/new').replace(
+      queryParameters: {
+        'title': 'Add brand: $name (${chart.category.label})',
+        'labels': 'brand-data',
+        'body': body,
+      },
+    );
     await launchUrl(uri, mode: LaunchMode.externalApplication);
   }
 
@@ -175,10 +185,13 @@ class _AddChartScreenState extends State<AddChartScreen> {
               SegmentedButton<ChartBasis>(
                 segments: const [
                   ButtonSegment(
-                      value: ChartBasis.body, label: Text('Body measurements')),
+                    value: ChartBasis.body,
+                    label: Text('Body measurements'),
+                  ),
                   ButtonSegment(
-                      value: ChartBasis.garment,
-                      label: Text('Garment measurements')),
+                    value: ChartBasis.garment,
+                    label: Text('Garment measurements'),
+                  ),
                 ],
                 selected: {_basis},
                 onSelectionChanged: (s) => setState(() => _basis = s.first),
@@ -199,7 +212,8 @@ class _AddChartScreenState extends State<AddChartScreen> {
                 decoration: InputDecoration(
                   labelText: 'Paste the size chart here',
                   alignLabelWithHint: true,
-                  helperText: 'Or type it: one size per line, values separated '
+                  helperText:
+                      'Or type it: one size per line, values separated '
                       'by tabs or two spaces.',
                   suffixIcon: IconButton(
                     tooltip: 'Insert a blank table to fill in',
@@ -222,23 +236,31 @@ class _AddChartScreenState extends State<AddChartScreen> {
                 const SizedBox(height: 24),
                 Text('Check it looks right', style: text.titleMedium),
                 const SizedBox(height: 8),
-                Row(children: [
-                  Expanded(
-                    child: Text(parsed.unitWasGuessed
-                        ? 'The chart did not say cm or inches. SizeCheck '
-                            'guessed ${_unit == ChartUnit.cm ? 'cm' : 'inches'}.'
-                        : 'Numbers are in '
-                            '${_unit == ChartUnit.cm ? 'cm' : 'inches'}.'),
-                  ),
-                  SegmentedButton<ChartUnit>(
-                    segments: const [
-                      ButtonSegment(value: ChartUnit.cm, label: Text('cm')),
-                      ButtonSegment(value: ChartUnit.inches, label: Text('in')),
-                    ],
-                    selected: {_unit!},
-                    onSelectionChanged: (s) => setState(() => _unit = s.first),
-                  ),
-                ]),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        parsed.unitWasGuessed
+                            ? 'The chart did not say cm or inches. SizeCheck '
+                                  'guessed ${_unit == ChartUnit.cm ? 'cm' : 'inches'}.'
+                            : 'Numbers are in '
+                                  '${_unit == ChartUnit.cm ? 'cm' : 'inches'}.',
+                      ),
+                    ),
+                    SegmentedButton<ChartUnit>(
+                      segments: const [
+                        ButtonSegment(value: ChartUnit.cm, label: Text('cm')),
+                        ButtonSegment(
+                          value: ChartUnit.inches,
+                          label: Text('in'),
+                        ),
+                      ],
+                      selected: {_unit!},
+                      onSelectionChanged: (s) =>
+                          setState(() => _unit = s.first),
+                    ),
+                  ],
+                ),
                 for (final w in parsed.warnings)
                   Padding(
                     padding: const EdgeInsets.only(top: 8),
@@ -250,22 +272,39 @@ class _AddChartScreenState extends State<AddChartScreen> {
                   child: DataTable(
                     columns: [
                       const DataColumn(label: Text('Size')),
-                      for (final m in Measure.values
-                          .where(parsed.measures.contains))
-                        DataColumn(label: Text('${m.label.split(' ').first} '
-                            '(${unitLabel(state.units)})')),
+                      for (final m in Measure.values.where(
+                        parsed.measures.contains,
+                      ))
+                        DataColumn(
+                          label: Text(
+                            '${m.label.split(' ').first} '
+                            '(${unitLabel(state.units)})',
+                          ),
+                        ),
                     ],
                     rows: [
                       for (final s in _rows)
-                        DataRow(cells: [
-                          DataCell(Text(s.label)),
-                          for (final m in Measure.values
-                              .where(parsed.measures.contains))
-                            DataCell(Text(s.ranges[m] == null
-                                ? '–'
-                                : fmtRange(s.ranges[m]!, state.units)
-                                    .replaceAll(' ${unitLabel(state.units)}', ''))),
-                        ]),
+                        DataRow(
+                          cells: [
+                            DataCell(Text(s.label)),
+                            for (final m in Measure.values.where(
+                              parsed.measures.contains,
+                            ))
+                              DataCell(
+                                Text(
+                                  s.ranges[m] == null
+                                      ? '–'
+                                      : fmtRange(
+                                          s.ranges[m]!,
+                                          state.units,
+                                        ).replaceAll(
+                                          ' ${unitLabel(state.units)}',
+                                          '',
+                                        ),
+                                ),
+                              ),
+                          ],
+                        ),
                     ],
                   ),
                 ),
@@ -286,7 +325,9 @@ class _AddChartScreenState extends State<AddChartScreen> {
                 const SizedBox(height: 8),
                 OutlinedButton.icon(
                   icon: const Icon(Icons.public),
-                  label: const Text('Also share it so everyone gets this brand'),
+                  label: const Text(
+                    'Also share it so everyone gets this brand',
+                  ),
                   onPressed: _share,
                 ),
                 const SizedBox(height: 4),

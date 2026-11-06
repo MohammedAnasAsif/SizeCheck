@@ -67,7 +67,7 @@ class ChartParser {
     r'\bcollar size\b': 'Collar',
   };
 
-  static final _sizeWord =RegExp(r'^\s*(size|sizes|brand size|label)\b');
+  static final _sizeWord = RegExp(r'^\s*(size|sizes|brand size|label)\b');
   static final _number = RegExp(r'\d+(?:\.\d+)?');
 
   static Measure? _measureFor(String cell) {
@@ -90,13 +90,20 @@ class ChartParser {
     // Drop unit notes like "(cm)" and join two-word measurement names, so a
     // header separated by single spaces still splits into the right cells.
     l = l.replaceAll(
-        RegExp(r'\s*\((?:cm|cms|in|inch|inches)\)', caseSensitive: false), '');
+      RegExp(r'\s*\((?:cm|cms|in|inch|inches)\)', caseSensitive: false),
+      '',
+    );
     for (final e in _phrases.entries) {
       l = l.replaceAll(RegExp(e.key, caseSensitive: false), e.value);
     }
-    l = l.replaceAllMapped(RegExp(r'(\d)\s*-\s*(\d)'), (m) => '${m[1]}-${m[2]}');
-    l = l.replaceAllMapped(RegExp(r'(\d)\s+to\s+(\d)', caseSensitive: false),
-        (m) => '${m[1]}-${m[2]}');
+    l = l.replaceAllMapped(
+      RegExp(r'(\d)\s*-\s*(\d)'),
+      (m) => '${m[1]}-${m[2]}',
+    );
+    l = l.replaceAllMapped(
+      RegExp(r'(\d)\s+to\s+(\d)', caseSensitive: false),
+      (m) => '${m[1]}-${m[2]}',
+    );
     List<String> parts;
     if (l.contains('\t')) {
       parts = l.split('\t');
@@ -145,14 +152,17 @@ class ChartParser {
     ].where((cells) => cells.isNotEmpty).toList();
     if (lines.length < 2) {
       throw ChartParseException(
-          'Paste the whole size chart, including the header row.');
+        'Paste the whole size chart, including the header row.',
+      );
     }
 
     // Layout A: a header row naming the measurements.
     int headerIndex = -1;
     for (var i = 0; i < lines.length; i++) {
       final found = lines[i].where((c) => _measureFor(c) != null).length;
-      if (found >= 1 && lines[i].length >= 2 && _measureFor(lines[i].first) == null) {
+      if (found >= 1 &&
+          lines[i].length >= 2 &&
+          _measureFor(lines[i].first) == null) {
         headerIndex = i;
         break;
       }
@@ -172,10 +182,14 @@ class ChartParser {
         (headerIndex < 0 || rowsWithMeasure.length >= 2)) {
       // Find the row of size labels: the "Size" row, or the row before the
       // first measurement row.
-      var labelIndex = lines.indexWhere((l) => _sizeWord.hasMatch(l.first.toLowerCase()));
+      var labelIndex = lines.indexWhere(
+        (l) => _sizeWord.hasMatch(l.first.toLowerCase()),
+      );
       if (labelIndex < 0) labelIndex = rowsWithMeasure.first - 1;
       if (labelIndex < 0) {
-        throw ChartParseException('Could not find the row with the size names.');
+        throw ChartParseException(
+          'Could not find the row with the size names.',
+        );
       }
       final labelRow = lines[labelIndex];
       final labels = _sizeWord.hasMatch(labelRow.first.toLowerCase())
@@ -189,8 +203,10 @@ class ChartParser {
         final m = _measureFor(lines[i].first)!;
         final values = lines[i].sublist(1);
         if (values.length != labels.length) {
-          warnings.add('The ${m.label.toLowerCase()} row has ${values.length} '
-              'values for ${labels.length} sizes; please check it.');
+          warnings.add(
+            'The ${m.label.toLowerCase()} row has ${values.length} '
+            'values for ${labels.length} sizes; please check it.',
+          );
         }
         for (var k = 0; k < labels.length && k < values.length; k++) {
           final r = _value(values[k]);
@@ -204,7 +220,9 @@ class ChartParser {
         final m = _measureFor(header[c]);
         if (m != null && !columns.containsValue(m)) columns[c] = m;
       }
-      var labelCol = header.indexWhere((c) => _sizeWord.hasMatch(c.toLowerCase()));
+      var labelCol = header.indexWhere(
+        (c) => _sizeWord.hasMatch(c.toLowerCase()),
+      );
       if (labelCol < 0) labelCol = 0;
       for (final row in lines.skip(headerIndex + 1)) {
         if (row.length <= labelCol) continue;
@@ -223,8 +241,9 @@ class ChartParser {
       }
     } else {
       throw ChartParseException(
-          'Could not find measurement names like Chest, Waist or Hip. '
-          'Copy the chart including its header row.');
+        'Could not find measurement names like Chest, Waist or Hip. '
+        'Copy the chart including its header row.',
+      );
     }
 
     order.removeWhere((l) => rawRows[l]!.isEmpty);
@@ -241,7 +260,10 @@ class ChartParser {
           label: l,
           ranges: {
             for (final e in rawRows[l]!.entries)
-              e.key: Range(round1(e.value.min * factor), round1(e.value.max * factor)),
+              e.key: Range(
+                round1(e.value.min * factor),
+                round1(e.value.max * factor),
+              ),
           },
         ),
     ];
@@ -259,7 +281,9 @@ class ChartParser {
     final feet = <double>[];
     for (final r in rows) {
       for (final e in r.entries) {
-        if (e.key == Measure.chest || e.key == Measure.waist || e.key == Measure.hip) {
+        if (e.key == Measure.chest ||
+            e.key == Measure.waist ||
+            e.key == Measure.hip) {
           girths.add(e.value.center);
         }
         if (e.key == Measure.foot) feet.add(e.value.center);

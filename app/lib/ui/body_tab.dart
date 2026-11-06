@@ -50,7 +50,8 @@ class _MeasurementsFormState extends State<_MeasurementsForm> {
     final units = AppScope.read(context).units;
     for (final m in Measure.values) {
       _controllers[m] = TextEditingController(
-          text: inputValue(widget.profile.measurements[m], units));
+        text: inputValue(widget.profile.measurements[m], units),
+      );
     }
   }
 
@@ -83,20 +84,26 @@ class _MeasurementsFormState extends State<_MeasurementsForm> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(children: [
-                Icon(info.icon, size: 28),
-                const SizedBox(width: 12),
-                Text('How to measure: ${m.label.toLowerCase()}',
-                    style: Theme.of(context).textTheme.titleMedium),
-              ]),
+              Row(
+                children: [
+                  Icon(info.icon, size: 28),
+                  const SizedBox(width: 12),
+                  Text(
+                    'How to measure: ${m.label.toLowerCase()}',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                ],
+              ),
               const SizedBox(height: 16),
               Text(info.how, style: Theme.of(context).textTheme.bodyLarge),
               const SizedBox(height: 16),
               for (final t in measuringTips)
                 Padding(
                   padding: const EdgeInsets.only(bottom: 6),
-                  child: Text('•  $t',
-                      style: Theme.of(context).textTheme.bodyMedium),
+                  child: Text(
+                    '•  $t',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
                 ),
             ],
           ),
@@ -117,7 +124,9 @@ class _MeasurementsFormState extends State<_MeasurementsForm> {
           Expanded(
             child: TextField(
               controller: _controllers[m],
-              keyboardType: const TextInputType.numberWithOptions(decimal: true),
+              keyboardType: const TextInputType.numberWithOptions(
+                decimal: true,
+              ),
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]')),
               ],
@@ -166,8 +175,9 @@ class _MeasurementsFormState extends State<_MeasurementsForm> {
             OutlinedButton.icon(
               icon: const Icon(Icons.bolt),
               label: const Text('No tape? Start from a size you know'),
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => const KnownSizeScreen())),
+              onPressed: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const KnownSizeScreen()),
+              ),
             ),
             const SizedBox(height: 20),
             Text('How you like clothes to fit', style: text.titleSmall),
@@ -176,9 +186,13 @@ class _MeasurementsFormState extends State<_MeasurementsForm> {
               segments: const [
                 ButtonSegment(value: FitPreference.slim, label: Text('Snug')),
                 ButtonSegment(
-                    value: FitPreference.regular, label: Text('Regular')),
+                  value: FitPreference.regular,
+                  label: Text('Regular'),
+                ),
                 ButtonSegment(
-                    value: FitPreference.relaxed, label: Text('Loose')),
+                  value: FitPreference.relaxed,
+                  label: Text('Loose'),
+                ),
               ],
               selected: {p.fitPreference},
               onSelectionChanged: (s) {
@@ -193,7 +207,10 @@ class _MeasurementsFormState extends State<_MeasurementsForm> {
               segments: const [
                 ButtonSegment(value: Audience.men, label: Text('Men')),
                 ButtonSegment(value: Audience.women, label: Text('Women')),
-                ButtonSegment(value: Audience.unisex, label: Text('Everything')),
+                ButtonSegment(
+                  value: Audience.unisex,
+                  label: Text('Everything'),
+                ),
               ],
               selected: {p.audience},
               onSelectionChanged: (s) {
@@ -202,25 +219,32 @@ class _MeasurementsFormState extends State<_MeasurementsForm> {
               },
             ),
             const SizedBox(height: 16),
-            Row(children: [
-              Text('Units', style: text.titleSmall),
-              const Spacer(),
-              SegmentedButton<UnitSystem>(
-                segments: const [
-                  ButtonSegment(value: UnitSystem.cm, label: Text('cm')),
-                  ButtonSegment(value: UnitSystem.inches, label: Text('inches')),
-                ],
-                selected: {state.units},
-                onSelectionChanged: (s) => state.setUnits(s.first),
-              ),
-            ]),
+            Row(
+              children: [
+                Text('Units', style: text.titleSmall),
+                const Spacer(),
+                SegmentedButton<UnitSystem>(
+                  segments: const [
+                    ButtonSegment(value: UnitSystem.cm, label: Text('cm')),
+                    ButtonSegment(
+                      value: UnitSystem.inches,
+                      label: Text('inches'),
+                    ),
+                  ],
+                  selected: {state.units},
+                  onSelectionChanged: (s) => state.setUnits(s.first),
+                ),
+              ],
+            ),
             const SizedBox(height: 24),
             Text('Main measurements', style: text.titleMedium),
             const SizedBox(height: 12),
             for (final m in core) _field(m, state),
             const SizedBox(height: 12),
-            Text('More (improves shirts, jeans and shoes)',
-                style: text.titleMedium),
+            Text(
+              'More (improves shirts, jeans and shoes)',
+              style: text.titleMedium,
+            ),
             const SizedBox(height: 12),
             for (final m in more) _field(m, state),
           ],

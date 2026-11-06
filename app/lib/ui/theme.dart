@@ -17,8 +17,9 @@ class AppTheme {
     );
     final base = ThemeData(colorScheme: scheme, useMaterial3: true);
     return base.copyWith(
-      scaffoldBackgroundColor:
-          b == Brightness.light ? const Color(0xFFF7F5F0) : scheme.surface,
+      scaffoldBackgroundColor: b == Brightness.light
+          ? const Color(0xFFF7F5F0)
+          : scheme.surface,
       cardTheme: CardThemeData(
         elevation: 0,
         color: scheme.surfaceContainerLow,

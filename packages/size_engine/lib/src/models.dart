@@ -8,20 +8,44 @@ enum Audience { men, women, unisex }
 enum Category {
   menTops('men_tops', 'T-shirts & tops', Audience.men, CategoryGroup.tops),
   menShirts('men_shirts', 'Shirts', Audience.men, CategoryGroup.shirts),
-  menBottoms('men_bottoms', 'Jeans & trousers', Audience.men,
-      CategoryGroup.bottoms),
+  menBottoms(
+    'men_bottoms',
+    'Jeans & trousers',
+    Audience.men,
+    CategoryGroup.bottoms,
+  ),
   womenTops('women_tops', 'Tops & kurtas', Audience.women, CategoryGroup.tops),
-  womenBottoms('women_bottoms', 'Jeans & trousers', Audience.women,
-      CategoryGroup.bottoms),
+  womenBottoms(
+    'women_bottoms',
+    'Jeans & trousers',
+    Audience.women,
+    CategoryGroup.bottoms,
+  ),
   womenDresses(
-      'women_dresses', 'Dresses', Audience.women, CategoryGroup.dresses),
+    'women_dresses',
+    'Dresses',
+    Audience.women,
+    CategoryGroup.dresses,
+  ),
   unisexTops(
-      'unisex_tops', 'T-shirts & tops', Audience.unisex, CategoryGroup.tops),
-  unisexBottoms('unisex_bottoms', 'Jeans & trousers', Audience.unisex,
-      CategoryGroup.bottoms),
+    'unisex_tops',
+    'T-shirts & tops',
+    Audience.unisex,
+    CategoryGroup.tops,
+  ),
+  unisexBottoms(
+    'unisex_bottoms',
+    'Jeans & trousers',
+    Audience.unisex,
+    CategoryGroup.bottoms,
+  ),
   menFootwear('men_footwear', 'Footwear', Audience.men, CategoryGroup.footwear),
   womenFootwear(
-      'women_footwear', 'Footwear', Audience.women, CategoryGroup.footwear);
+    'women_footwear',
+    'Footwear',
+    Audience.women,
+    CategoryGroup.footwear,
+  );
 
   const Category(this.id, this.shortLabel, this.audience, this.group);
 
@@ -48,44 +72,44 @@ enum Category {
 
   /// Measurements that decide the size, with their weights.
   Map<Measure, double> get weights => switch (group) {
-        CategoryGroup.tops => const {
-            Measure.chest: 1.0,
-            Measure.shoulder: 0.5,
-            Measure.waist: 0.35,
-            Measure.hip: 0.2,
-            Measure.sleeve: 0.15,
-            Measure.height: 0.1,
-          },
-        CategoryGroup.shirts => const {
-            Measure.chest: 1.0,
-            Measure.neck: 0.7,
-            Measure.shoulder: 0.5,
-            Measure.waist: 0.35,
-            Measure.sleeve: 0.2,
-            Measure.height: 0.1,
-          },
-        CategoryGroup.bottoms => const {
-            Measure.waist: 1.0,
-            Measure.hip: 0.7,
-            Measure.inseam: 0.3,
-            Measure.height: 0.1,
-          },
-        CategoryGroup.dresses => const {
-            Measure.chest: 1.0,
-            Measure.waist: 0.8,
-            Measure.hip: 0.8,
-            Measure.shoulder: 0.3,
-            Measure.height: 0.1,
-          },
-        CategoryGroup.footwear => const {Measure.foot: 1.0},
-      };
+    CategoryGroup.tops => const {
+      Measure.chest: 1.0,
+      Measure.shoulder: 0.5,
+      Measure.waist: 0.35,
+      Measure.hip: 0.2,
+      Measure.sleeve: 0.15,
+      Measure.height: 0.1,
+    },
+    CategoryGroup.shirts => const {
+      Measure.chest: 1.0,
+      Measure.neck: 0.7,
+      Measure.shoulder: 0.5,
+      Measure.waist: 0.35,
+      Measure.sleeve: 0.2,
+      Measure.height: 0.1,
+    },
+    CategoryGroup.bottoms => const {
+      Measure.waist: 1.0,
+      Measure.hip: 0.7,
+      Measure.inseam: 0.3,
+      Measure.height: 0.1,
+    },
+    CategoryGroup.dresses => const {
+      Measure.chest: 1.0,
+      Measure.waist: 0.8,
+      Measure.hip: 0.8,
+      Measure.shoulder: 0.3,
+      Measure.height: 0.1,
+    },
+    CategoryGroup.footwear => const {Measure.foot: 1.0},
+  };
 
   /// The single most important measurement for this category.
   Measure get primary => switch (group) {
-        CategoryGroup.bottoms => Measure.waist,
-        CategoryGroup.footwear => Measure.foot,
-        _ => Measure.chest,
-      };
+    CategoryGroup.bottoms => Measure.waist,
+    CategoryGroup.footwear => Measure.foot,
+    _ => Measure.chest,
+  };
 }
 
 enum ChartBasis {
@@ -180,10 +204,10 @@ class SizeRow {
   }
 
   Map<String, dynamic> toJson() => {
-        'label': label,
-        if (alt.isNotEmpty) 'alt': alt,
-        for (final e in ranges.entries) e.key.key: e.value.toJson(),
-      };
+    'label': label,
+    if (alt.isNotEmpty) 'alt': alt,
+    for (final e in ranges.entries) e.key.key: e.value.toJson(),
+  };
 }
 
 class ChartSource {
@@ -193,9 +217,9 @@ class ChartSource {
   final String verifiedOn;
 
   factory ChartSource.fromJson(Map<String, dynamic> json) => ChartSource(
-        url: json['url'] as String,
-        verifiedOn: json['verified_on'] as String,
-      );
+    url: json['url'] as String,
+    verifiedOn: json['verified_on'] as String,
+  );
 
   Map<String, dynamic> toJson() => {'url': url, 'verified_on': verifiedOn};
 }
@@ -245,22 +269,20 @@ class SizeChart {
   }
 
   Map<String, dynamic> toJson() => {
-        'category': category.id,
-        'basis': basis.name,
-        if (fit != null) 'fit': fit!.name,
-        if (region != null) 'region': region,
-        'unit': 'cm',
-        if (note != null) 'note': note,
-        'sizes': [for (final s in sizes) s.toJson()],
-        if (source != null) 'source': source!.toJson(),
-      };
+    'category': category.id,
+    'basis': basis.name,
+    if (fit != null) 'fit': fit!.name,
+    if (region != null) 'region': region,
+    'unit': 'cm',
+    if (note != null) 'note': note,
+    'sizes': [for (final s in sizes) s.toJson()],
+    if (source != null) 'source': source!.toJson(),
+  };
 
   /// The chart with single values turned into ranges that meet halfway
   /// between neighbouring sizes, so every size covers a band of bodies.
   SizeChart withExpandedPoints() {
-    final expanded = [
-      for (final s in sizes) Map<Measure, Range>.of(s.ranges),
-    ];
+    final expanded = [for (final s in sizes) Map<Measure, Range>.of(s.ranges)];
     for (final m in measures) {
       final idx = [
         for (var i = 0; i < sizes.length; i++)
@@ -271,8 +293,9 @@ class SizeChart {
         if (!r.isPoint) continue;
         final v = r.center;
         final prev = k > 0 ? sizes[idx[k - 1]].ranges[m]!.center : null;
-        final next =
-            k < idx.length - 1 ? sizes[idx[k + 1]].ranges[m]!.center : null;
+        final next = k < idx.length - 1
+            ? sizes[idx[k + 1]].ranges[m]!.center
+            : null;
         double lo, hi;
         if (prev != null && next != null) {
           lo = (prev + v) / 2;
@@ -305,7 +328,11 @@ class SizeChart {
       source: source,
       sizes: [
         for (var i = 0; i < sizes.length; i++)
-          SizeRow(label: sizes[i].label, alt: sizes[i].alt, ranges: expanded[i]),
+          SizeRow(
+            label: sizes[i].label,
+            alt: sizes[i].alt,
+            ranges: expanded[i],
+          ),
       ],
     );
   }
@@ -339,7 +366,8 @@ class Brand {
     final matches = charts.where((c) => c.category == category).toList();
     if (matches.isEmpty) return null;
     int rank(SizeChart c) =>
-        (c.region == 'IN' ? 0 : 2) + (c.fit == null || c.fit == GarmentFit.regular ? 0 : 1);
+        (c.region == 'IN' ? 0 : 2) +
+        (c.fit == null || c.fit == GarmentFit.regular ? 0 : 1);
     matches.sort((a, b) => rank(a).compareTo(rank(b)));
     return matches.first;
   }
@@ -355,8 +383,12 @@ class Brand {
       id: json['id'] as String,
       name: json['name'] as String,
       origin: origin,
-      aliases: [for (final a in (json['aliases'] as List? ?? const [])) a as String],
-      domains: [for (final d in (json['domains'] as List? ?? const [])) d as String],
+      aliases: [
+        for (final a in (json['aliases'] as List? ?? const [])) a as String,
+      ],
+      domains: [
+        for (final d in (json['domains'] as List? ?? const [])) d as String,
+      ],
       charts: [
         for (final c in (json['charts'] as List))
           SizeChart.fromJson(c as Map<String, dynamic>),
@@ -365,11 +397,11 @@ class Brand {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'origin': origin.name,
-        if (aliases.isNotEmpty) 'aliases': aliases,
-        if (domains.isNotEmpty) 'domains': domains,
-        'charts': [for (final c in charts) c.toJson()],
-      };
+    'id': id,
+    'name': name,
+    'origin': origin.name,
+    if (aliases.isNotEmpty) 'aliases': aliases,
+    if (domains.isNotEmpty) 'domains': domains,
+    'charts': [for (final c in charts) c.toJson()],
+  };
 }

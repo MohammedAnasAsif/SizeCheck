@@ -14,15 +14,20 @@ Future<void> openLink(BuildContext context, String text) async {
   final found = detector.detect(text);
   final messenger = ScaffoldMessenger.of(context);
   if (found == null) {
-    messenger.showSnackBar(const SnackBar(
-        content: Text('That does not look like a shop link.')));
+    messenger.showSnackBar(
+      const SnackBar(content: Text('That does not look like a shop link.')),
+    );
     return;
   }
   if (found.brand != null) {
-    await Navigator.of(context).push(MaterialPageRoute(
-      builder: (_) =>
-          BrandScreen(brandId: found.brand!.id, initialCategory: found.category),
-    ));
+    await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => BrandScreen(
+          brandId: found.brand!.id,
+          initialCategory: found.category,
+        ),
+      ),
+    );
     return;
   }
   final guessName = found.viaMarketplace ? '' : _nameFromHost(found.host);
@@ -46,11 +51,11 @@ Future<void> openLink(BuildContext context, String text) async {
             Text(
               found.viaMarketplace
                   ? 'SizeCheck could not tell the brand from this ${found.host} '
-                      'link. Search for it, or copy the size chart from the '
-                      'product page.'
+                        'link. Search for it, or copy the size chart from the '
+                        'product page.'
                   : 'Copy the size chart from the product page and paste it '
-                      'in. It takes a few seconds, and you get your size '
-                      'straight away.',
+                        'in. It takes a few seconds, and you get your size '
+                        'straight away.',
             ),
             const SizedBox(height: 20),
             FilledButton.icon(
@@ -58,13 +63,15 @@ Future<void> openLink(BuildContext context, String text) async {
               label: const Text('Paste its size chart'),
               onPressed: () {
                 Navigator.pop(sheet);
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (_) => AddChartScreen(
-                    initialBrandName: guessName,
-                    initialCategory: found.category,
-                    sourceUrl: LinkDetector.extractUri(text)?.toString(),
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => AddChartScreen(
+                      initialBrandName: guessName,
+                      initialCategory: found.category,
+                      sourceUrl: LinkDetector.extractUri(text)?.toString(),
+                    ),
                   ),
-                ));
+                );
               },
             ),
             const SizedBox(height: 8),
@@ -74,11 +81,14 @@ Future<void> openLink(BuildContext context, String text) async {
                 label: const Text('Use typical sizes for now'),
                 onPressed: () {
                   Navigator.pop(sheet);
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (_) => BrandScreen(
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => BrandScreen(
                         brandId: Catalog.typicalId,
-                        initialCategory: found.category),
-                  ));
+                        initialCategory: found.category,
+                      ),
+                    ),
+                  );
                 },
               ),
           ],
@@ -135,86 +145,103 @@ class _FindTabState extends State<FindTab> {
             slivers: [
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(16, 4, 16, 8),
-                sliver: SliverList.list(children: [
-                  if (!state.active.hasAnyMeasurement) ...[
-                    Card(
-                      color: scheme.tertiaryContainer,
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text('Start here',
+                sliver: SliverList.list(
+                  children: [
+                    if (!state.active.hasAnyMeasurement) ...[
+                      Card(
+                        color: scheme.tertiaryContainer,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Start here',
                                 style: text.titleMedium?.copyWith(
-                                    color: scheme.onTertiaryContainer)),
-                            const SizedBox(height: 6),
-                            Text(
-                              'Add your measurements once, or tell SizeCheck '
-                              'a size that fits you in any brand.',
-                              style: TextStyle(color: scheme.onTertiaryContainer),
-                            ),
-                            const SizedBox(height: 12),
-                            Wrap(spacing: 8, runSpacing: 8, children: [
-                              FilledButton(
-                                onPressed: widget.onGoToBody,
-                                child: const Text('Add measurements'),
+                                  color: scheme.onTertiaryContainer,
+                                ),
                               ),
-                              OutlinedButton(
-                                onPressed: () => Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                        builder: (_) =>
-                                            const KnownSizeScreen())),
-                                child: const Text('I know my size somewhere'),
+                              const SizedBox(height: 6),
+                              Text(
+                                'Add your measurements once, or tell SizeCheck '
+                                'a size that fits you in any brand.',
+                                style: TextStyle(
+                                  color: scheme.onTertiaryContainer,
+                                ),
                               ),
-                            ]),
-                          ],
+                              const SizedBox(height: 12),
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children: [
+                                  FilledButton(
+                                    onPressed: widget.onGoToBody,
+                                    child: const Text('Add measurements'),
+                                  ),
+                                  OutlinedButton(
+                                    onPressed: () => Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (_) => const KnownSizeScreen(),
+                                      ),
+                                    ),
+                                    child: const Text(
+                                      'I know my size somewhere',
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+                      const SizedBox(height: 16),
+                    ],
+                    Text('Check a product link', style: text.titleMedium),
+                    const SizedBox(height: 8),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: TextField(
+                            controller: _link,
+                            keyboardType: TextInputType.url,
+                            decoration: const InputDecoration(
+                              hintText: 'Paste a link from Myntra, Ajio, Zara…',
+                              prefixIcon: Icon(Icons.link),
+                            ),
+                            onSubmitted: (v) => openLink(context, v),
+                          ),
+                        ),
+                        const SizedBox(width: 8),
+                        FilledButton(
+                          onPressed: () => openLink(context, _link.text),
+                          child: const Text('Check'),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 16),
+                    const SizedBox(height: 24),
+                    Text('Or pick a brand', style: text.titleMedium),
+                    const SizedBox(height: 8),
+                    TextField(
+                      controller: _search,
+                      decoration: InputDecoration(
+                        hintText:
+                            'Search ${state.catalog.brands.length} brands',
+                        prefixIcon: const Icon(Icons.search),
+                        suffixIcon: _query.isEmpty
+                            ? null
+                            : IconButton(
+                                icon: const Icon(Icons.clear),
+                                onPressed: () {
+                                  _search.clear();
+                                  setState(() => _query = '');
+                                },
+                              ),
+                      ),
+                      onChanged: (v) => setState(() => _query = v),
+                    ),
+                    const SizedBox(height: 8),
                   ],
-                  Text('Check a product link', style: text.titleMedium),
-                  const SizedBox(height: 8),
-                  Row(children: [
-                    Expanded(
-                      child: TextField(
-                        controller: _link,
-                        keyboardType: TextInputType.url,
-                        decoration: const InputDecoration(
-                          hintText: 'Paste a link from Myntra, Ajio, Zara…',
-                          prefixIcon: Icon(Icons.link),
-                        ),
-                        onSubmitted: (v) => openLink(context, v),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    FilledButton(
-                      onPressed: () => openLink(context, _link.text),
-                      child: const Text('Check'),
-                    ),
-                  ]),
-                  const SizedBox(height: 24),
-                  Text('Or pick a brand', style: text.titleMedium),
-                  const SizedBox(height: 8),
-                  TextField(
-                    controller: _search,
-                    decoration: InputDecoration(
-                      hintText: 'Search ${state.catalog.brands.length} brands',
-                      prefixIcon: const Icon(Icons.search),
-                      suffixIcon: _query.isEmpty
-                          ? null
-                          : IconButton(
-                              icon: const Icon(Icons.clear),
-                              onPressed: () {
-                                _search.clear();
-                                setState(() => _query = '');
-                              },
-                            ),
-                    ),
-                    onChanged: (v) => setState(() => _query = v),
-                  ),
-                  const SizedBox(height: 8),
-                ]),
+                ),
               ),
               SliverList.builder(
                 itemCount: results.length,
@@ -222,23 +249,30 @@ class _FindTabState extends State<FindTab> {
               ),
               SliverPadding(
                 padding: const EdgeInsets.fromLTRB(16, 8, 16, 32),
-                sliver: SliverList.list(children: [
-                  Card(
-                    child: ListTile(
-                      leading: const Icon(Icons.add_circle_outline),
-                      title: Text(_query.isEmpty
-                          ? 'Brand not listed?'
-                          : 'Can\'t find "${_query.trim()}"?'),
-                      subtitle: const Text(
+                sliver: SliverList.list(
+                  children: [
+                    Card(
+                      child: ListTile(
+                        leading: const Icon(Icons.add_circle_outline),
+                        title: Text(
+                          _query.isEmpty
+                              ? 'Brand not listed?'
+                              : 'Can\'t find "${_query.trim()}"?',
+                        ),
+                        subtitle: const Text(
                           'Paste its size chart from the product page and get '
-                          'your size in seconds.'),
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                        builder: (_) => AddChartScreen(
-                            initialBrandName: _query.trim()),
-                      )),
+                          'your size in seconds.',
+                        ),
+                        onTap: () => Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (_) =>
+                                AddChartScreen(initialBrandName: _query.trim()),
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ]),
+                  ],
+                ),
               ),
             ],
           ),
@@ -271,19 +305,22 @@ class _BrandTile extends StatelessWidget {
         child: Text(
           brand.name.isEmpty ? '?' : brand.name[0].toUpperCase(),
           style: TextStyle(
-              color: brand.isUserAdded
-                  ? scheme.onTertiaryContainer
-                  : scheme.onPrimaryContainer,
-              fontWeight: FontWeight.w700),
+            color: brand.isUserAdded
+                ? scheme.onTertiaryContainer
+                : scheme.onPrimaryContainer,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
       title: Text(brand.name),
-      subtitle: Text('$tag · ${brand.categories.length} '
-          '${brand.categories.length == 1 ? 'category' : 'categories'}'),
+      subtitle: Text(
+        '$tag · ${brand.categories.length} '
+        '${brand.categories.length == 1 ? 'category' : 'categories'}',
+      ),
       trailing: const Icon(Icons.chevron_right),
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-        builder: (_) => BrandScreen(brandId: brand.id),
-      )),
+      onTap: () => Navigator.of(
+        context,
+      ).push(MaterialPageRoute(builder: (_) => BrandScreen(brandId: brand.id))),
     );
   }
 }

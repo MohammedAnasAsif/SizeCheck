@@ -60,14 +60,19 @@ class HistoryTab extends StatelessWidget {
                     return ListTile(
                       leading: CircleAvatar(
                         backgroundColor: color.withValues(alpha: 0.14),
-                        child: Text(h.sizeLabel,
-                            style: TextStyle(
-                                color: color, fontWeight: FontWeight.w700,
-                                fontSize: h.sizeLabel.length > 3 ? 11 : 14)),
+                        child: Text(
+                          h.sizeLabel,
+                          style: TextStyle(
+                            color: color,
+                            fontWeight: FontWeight.w700,
+                            fontSize: h.sizeLabel.length > 3 ? 11 : 14,
+                          ),
+                        ),
                       ),
                       title: Text('${h.brandName} · ${h.category.label}'),
                       subtitle: Text(
-                          '${h.outcome.label} · ${h.date.toLocal().toString().substring(0, 10)}'),
+                        '${h.outcome.label} · ${h.date.toLocal().toString().substring(0, 10)}',
+                      ),
                       trailing: IconButton(
                         tooltip: 'Remove',
                         icon: const Icon(Icons.close),
@@ -78,11 +83,14 @@ class HistoryTab extends StatelessWidget {
                       ),
                       onTap: state.catalog.byId(h.brandId) == null
                           ? null
-                          : () => Navigator.of(context).push(MaterialPageRoute(
+                          : () => Navigator.of(context).push(
+                              MaterialPageRoute(
                                 builder: (_) => BrandScreen(
-                                    brandId: h.brandId,
-                                    initialCategory: h.category),
-                              )),
+                                  brandId: h.brandId,
+                                  initialCategory: h.category,
+                                ),
+                              ),
+                            ),
                     );
                   },
                 ),

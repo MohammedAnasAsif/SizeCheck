@@ -27,8 +27,9 @@ class _KnownSizeScreenState extends State<KnownSizeScreen> {
         .where((b) => b.origin != BrandOrigin.typical)
         .take(30)
         .toList();
-    final chart =
-        _brand != null && _category != null ? _brand!.chartFor(_category!) : null;
+    final chart = _brand != null && _category != null
+        ? _brand!.chartFor(_category!)
+        : null;
     final estimate = chart != null && _size != null
         ? Recommender.estimateFromSize(chart, _size!)
         : const <Measure, double>{};
@@ -67,9 +68,11 @@ class _KnownSizeScreenState extends State<KnownSizeScreen> {
                       _brand = b;
                       final cats = b.categories.toList()
                         ..sort((x, y) => x.index.compareTo(y.index));
-                      final mine = cats.where((c) =>
-                          state.active.audience == Audience.unisex ||
-                          c.audience == state.active.audience);
+                      final mine = cats.where(
+                        (c) =>
+                            state.active.audience == Audience.unisex ||
+                            c.audience == state.active.audience,
+                      );
                       _category = mine.isNotEmpty ? mine.first : cats.first;
                       _size = null;
                     }),
@@ -87,31 +90,40 @@ class _KnownSizeScreenState extends State<KnownSizeScreen> {
                 const SizedBox(height: 20),
                 Text('2. What kind of clothing', style: text.titleMedium),
                 const SizedBox(height: 8),
-                Wrap(spacing: 8, runSpacing: 8, children: [
-                  for (final c in _brand!.categories.toList()
-                    ..sort((x, y) => x.index.compareTo(y.index)))
-                    ChoiceChip(
-                      label: Text(c.label),
-                      selected: c == _category,
-                      onSelected: (_) => setState(() {
-                        _category = c;
-                        _size = null;
-                      }),
-                    ),
-                ]),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final c
+                        in _brand!.categories.toList()
+                          ..sort((x, y) => x.index.compareTo(y.index)))
+                      ChoiceChip(
+                        label: Text(c.label),
+                        selected: c == _category,
+                        onSelected: (_) => setState(() {
+                          _category = c;
+                          _size = null;
+                        }),
+                      ),
+                  ],
+                ),
               ],
               if (chart != null) ...[
                 const SizedBox(height: 20),
                 Text('3. The size that fits you well', style: text.titleMedium),
                 const SizedBox(height: 8),
-                Wrap(spacing: 8, runSpacing: 8, children: [
-                  for (final s in chart.sizes)
-                    ChoiceChip(
-                      label: Text(s.displayLabel),
-                      selected: s.label == _size,
-                      onSelected: (_) => setState(() => _size = s.label),
-                    ),
-                ]),
+                Wrap(
+                  spacing: 8,
+                  runSpacing: 8,
+                  children: [
+                    for (final s in chart.sizes)
+                      ChoiceChip(
+                        label: Text(s.displayLabel),
+                        selected: s.label == _size,
+                        onSelected: (_) => setState(() => _size = s.label),
+                      ),
+                  ],
+                ),
               ],
               if (estimate.isNotEmpty) ...[
                 const SizedBox(height: 24),
@@ -124,8 +136,10 @@ class _KnownSizeScreenState extends State<KnownSizeScreen> {
                         Text('Estimated measurements', style: text.titleSmall),
                         const SizedBox(height: 8),
                         for (final e in estimate.entries)
-                          Text('${e.key.label}: about '
-                              '${fmtLength(e.value, state.units)}'),
+                          Text(
+                            '${e.key.label}: about '
+                            '${fmtLength(e.value, state.units)}',
+                          ),
                         const SizedBox(height: 8),
                         Text(
                           'Measurements you already entered yourself are '
@@ -143,7 +157,8 @@ class _KnownSizeScreenState extends State<KnownSizeScreen> {
                     final messenger = ScaffoldMessenger.of(context);
                     var added = 0;
                     for (final e in estimate.entries) {
-                      final measuredByHand = p.measurements.containsKey(e.key) &&
+                      final measuredByHand =
+                          p.measurements.containsKey(e.key) &&
                           !p.estimated.contains(e.key);
                       if (measuredByHand) continue;
                       p.setMeasurement(e.key, e.value, isEstimate: true);
@@ -154,11 +169,15 @@ class _KnownSizeScreenState extends State<KnownSizeScreen> {
                         : _category!.audience;
                     state.changed();
                     Navigator.pop(context);
-                    messenger.showSnackBar(SnackBar(
-                      content: Text(added == 0
-                          ? 'Your own measurements were kept.'
-                          : 'Added $added estimated measurements.'),
-                    ));
+                    messenger.showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          added == 0
+                              ? 'Your own measurements were kept.'
+                              : 'Added $added estimated measurements.',
+                        ),
+                      ),
+                    );
                   },
                   child: const Text('Use these'),
                 ),

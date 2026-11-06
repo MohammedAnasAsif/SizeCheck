@@ -25,8 +25,9 @@ class DataSource {
       json['version'] is String;
 
   Future<Map<String, dynamic>> load() async {
-    final bundled =
-        jsonDecode(await rootBundle.loadString(assetPath)) as Map<String, dynamic>;
+    final bundled = jsonDecode(
+      await rootBundle.loadString(assetPath),
+    ) as Map<String, dynamic>;
     final cached = await _storage.readJson(cacheName);
     if (_isValid(cached) &&
         (cached!['brand_count'] as int? ?? 0) >=
@@ -39,7 +40,8 @@ class DataSource {
   /// Downloads the latest charts. Returns the new data, or null if nothing
   /// changed or the download failed (the app keeps working offline).
   Future<Map<String, dynamic>?> fetchUpdate(String currentVersion) async {
-    final client = HttpClient()..connectionTimeout = const Duration(seconds: 10);
+    final client = HttpClient()
+      ..connectionTimeout = const Duration(seconds: 10);
     try {
       final req = await client.getUrl(Uri.parse(remoteUrl));
       final res = await req.close().timeout(const Duration(seconds: 20));

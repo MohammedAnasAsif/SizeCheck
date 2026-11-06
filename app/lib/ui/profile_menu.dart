@@ -26,9 +26,15 @@ class ProfileMenuButton extends StatelessWidget {
         const PopupMenuItem(value: 'add', child: Text('Add a person')),
         const PopupMenuItem(value: 'rename', child: Text('Rename')),
         const PopupMenuItem(value: 'export', child: Text('Copy profile code')),
-        const PopupMenuItem(value: 'import', child: Text('Import profile code')),
+        const PopupMenuItem(
+          value: 'import',
+          child: Text('Import profile code'),
+        ),
         if (state.profiles.length > 1)
-          const PopupMenuItem(value: 'delete', child: Text('Delete this profile')),
+          const PopupMenuItem(
+            value: 'delete',
+            child: Text('Delete this profile'),
+          ),
       ],
       child: Chip(
         avatar: const Icon(Icons.person_outline, size: 18),
@@ -47,28 +53,44 @@ class ProfileMenuButton extends StatelessWidget {
       final name = await _ask(context, 'Add a person', 'Name', '');
       if (name != null && name.isNotEmpty) state.addProfile(name);
     } else if (v == 'rename') {
-      final name =
-          await _ask(context, 'Rename profile', 'Name', state.active.name);
+      final name = await _ask(
+        context,
+        'Rename profile',
+        'Name',
+        state.active.name,
+      );
       if (name != null && name.isNotEmpty) {
         state.active.name = name;
         state.changed();
       }
     } else if (v == 'export') {
       await Clipboard.setData(ClipboardData(text: state.active.toExportCode()));
-      messenger.showSnackBar(const SnackBar(
-          content: Text('Profile code copied. Paste it into SizeCheck on '
-              'another device with "Import profile code".')));
+      messenger.showSnackBar(
+        const SnackBar(
+          content: Text(
+            'Profile code copied. Paste it into SizeCheck on '
+            'another device with "Import profile code".',
+          ),
+        ),
+      );
     } else if (v == 'import') {
       final clip = await Clipboard.getData(Clipboard.kTextPlain);
       if (!context.mounted) return;
       final code = await _ask(
-          context, 'Import profile code', 'Paste the code', clip?.text ?? '',
-          multiline: true);
+        context,
+        'Import profile code',
+        'Paste the code',
+        clip?.text ?? '',
+        multiline: true,
+      );
       if (code == null) return;
       final p = BodyProfile.fromExportCode(code, newId: AppState.newId());
       if (p == null) {
         messenger.showSnackBar(
-            const SnackBar(content: Text('That is not a SizeCheck profile code.')));
+          const SnackBar(
+            content: Text('That is not a SizeCheck profile code.'),
+          ),
+        );
       } else {
         state.importProfile(p);
         messenger.showSnackBar(SnackBar(content: Text('Imported ${p.name}.')));
@@ -78,15 +100,19 @@ class ProfileMenuButton extends StatelessWidget {
         context: context,
         builder: (context) => AlertDialog(
           title: Text('Delete ${state.active.name}?'),
-          content: const Text('Their measurements and fit history will be '
-              'removed from this device.'),
+          content: const Text(
+            'Their measurements and fit history will be '
+            'removed from this device.',
+          ),
           actions: [
             TextButton(
-                onPressed: () => Navigator.pop(context, false),
-                child: const Text('Cancel')),
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Cancel'),
+            ),
             FilledButton(
-                onPressed: () => Navigator.pop(context, true),
-                child: const Text('Delete')),
+              onPressed: () => Navigator.pop(context, true),
+              child: const Text('Delete'),
+            ),
           ],
         ),
       );
@@ -95,8 +121,12 @@ class ProfileMenuButton extends StatelessWidget {
   }
 
   static Future<String?> _ask(
-      BuildContext context, String title, String label, String initial,
-      {bool multiline = false}) {
+    BuildContext context,
+    String title,
+    String label,
+    String initial, {
+    bool multiline = false,
+  }) {
     final controller = TextEditingController(text: initial);
     return showDialog<String>(
       context: context,
@@ -113,11 +143,13 @@ class ProfileMenuButton extends StatelessWidget {
         ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel')),
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
           FilledButton(
-              onPressed: () => Navigator.pop(context, controller.text.trim()),
-              child: const Text('OK')),
+            onPressed: () => Navigator.pop(context, controller.text.trim()),
+            child: const Text('OK'),
+          ),
         ],
       ),
     );

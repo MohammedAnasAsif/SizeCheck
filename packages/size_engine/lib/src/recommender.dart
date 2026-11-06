@@ -31,15 +31,15 @@ class MeasureFit {
   FitStatus get status => value < range.min
       ? FitStatus.below
       : value > range.max
-          ? FitStatus.above
-          : FitStatus.within;
+      ? FitStatus.above
+      : FitStatus.within;
 
   /// cm outside the range; 0 when inside.
   double get distance => switch (status) {
-        FitStatus.below => range.min - value,
-        FitStatus.above => value - range.max,
-        FitStatus.within => 0,
-      };
+    FitStatus.below => range.min - value,
+    FitStatus.above => value - range.max,
+    FitStatus.within => 0,
+  };
 }
 
 class SizeScore {
@@ -147,7 +147,9 @@ class Recommender {
             alt: s.alt,
             ranges: {
               for (final e in s.ranges.entries)
-                e.key: e.value.shift(-ease(chart.category.group, e.key, chart.fit)),
+                e.key: e.value.shift(
+                  -ease(chart.category.group, e.key, chart.fit),
+                ),
             },
           ),
       ],
@@ -166,11 +168,11 @@ class Recommender {
   }
 
   static double _offsetShare(Measure m) => switch (m) {
-        Measure.chest || Measure.waist || Measure.hip => 1.0,
-        Measure.neck => 0.4,
-        Measure.foot => 0.25,
-        _ => 0.0,
-      };
+    Measure.chest || Measure.waist || Measure.hip => 1.0,
+    Measure.neck => 0.4,
+    Measure.foot => 0.25,
+    _ => 0.0,
+  };
 
   static double _penalty(double value, Range r, Measure m) {
     if (r.contains(value)) {
@@ -193,13 +195,15 @@ class Recommender {
   }) {
     final body = bodyChart(chart);
     final weights = chart.category.weights;
-    final offset =
-        brandId == null ? 0.0 : profile.offsetFor(brandId, chart.category);
+    final offset = brandId == null
+        ? 0.0
+        : profile.offsetFor(brandId, chart.category);
 
     final chartMeasures = body.measures;
     final missing = [
-      for (final e in (weights.entries.toList()
-        ..sort((a, b) => b.value.compareTo(a.value))))
+      for (final e
+          in (weights.entries.toList()
+            ..sort((a, b) => b.value.compareTo(a.value))))
         if (chartMeasures.contains(e.key) &&
             !profile.measurements.containsKey(e.key))
           e.key,
@@ -216,20 +220,24 @@ class Recommender {
         final raw = profile.measurements[e.key];
         if (w == null || raw == null) continue;
         if (profile.estimated.contains(e.key)) usedEstimates = true;
-        final value = raw +
+        final value =
+            raw +
             _preferenceShift(profile.fitPreference, e.key) +
             offset * _offsetShare(e.key);
         final p = _penalty(value, e.value, e.key);
-        fits.add(MeasureFit(
-            measure: e.key, value: value, range: e.value, penalty: p));
+        fits.add(
+          MeasureFit(measure: e.key, value: value, range: e.value, penalty: p),
+        );
         total += w * p;
         weightSum += w;
       }
       if (weightSum == 0) continue;
-      fits.sort((a, b) =>
-          (weights[b.measure] ?? 0).compareTo(weights[a.measure] ?? 0));
-      scores.add(SizeScore(
-          size: size, index: i, score: total / weightSum, fits: fits));
+      fits.sort(
+        (a, b) => (weights[b.measure] ?? 0).compareTo(weights[a.measure] ?? 0),
+      );
+      scores.add(
+        SizeScore(size: size, index: i, score: total / weightSum, fits: fits),
+      );
     }
 
     if (scores.isEmpty) {
@@ -247,7 +255,8 @@ class Recommender {
     }
 
     // Lowest score wins. On a near tie, the person's preference decides.
-    final ranked = [...scores]..sort((a, b) {
+    final ranked = [...scores]
+      ..sort((a, b) {
         final diff = a.score - b.score;
         if (diff.abs() > 0.03) return diff.sign.toInt();
         final preferLarger = profile.fitPreference == FitPreference.relaxed;

@@ -19,7 +19,10 @@ class ResultCard extends StatelessWidget {
     final profile = state.active;
     final units = state.units;
     final rec = Recommender.recommend(
-        profile: profile, chart: chart, brandId: brand.id);
+      profile: profile,
+      chart: chart,
+      brandId: brand.id,
+    );
     final text = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
 
@@ -31,13 +34,16 @@ class ResultCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Add a measurement to get your size', style: text.titleMedium),
+              Text(
+                'Add a measurement to get your size',
+                style: text.titleMedium,
+              ),
               const SizedBox(height: 8),
               Text('This chart uses ${needed.join(', ')}.'),
               const SizedBox(height: 16),
               FilledButton(
-                onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(builder: (_) => const BodyTab())),
+                onPressed: () => Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => const BodyTab())),
                 child: const Text('Add measurements'),
               ),
               const SizedBox(height: 20),
@@ -58,33 +64,47 @@ class ResultCard extends StatelessWidget {
 
     final notes = <String>[];
     if (rec.outOfRange == OutOfRange.largerThanLargest) {
-      notes.add('Your measurements are larger than this brand\'s biggest size '
-          'in this chart. ${best.size.label} is the closest, but it may be tight.');
+      notes.add(
+        'Your measurements are larger than this brand\'s biggest size '
+        'in this chart. ${best.size.label} is the closest, but it may be tight.',
+      );
     } else if (rec.outOfRange == OutOfRange.smallerThanSmallest) {
-      notes.add('Your measurements are smaller than this brand\'s smallest '
-          'size in this chart. ${best.size.label} is the closest, but it may be loose.');
+      notes.add(
+        'Your measurements are smaller than this brand\'s smallest '
+        'size in this chart. ${best.size.label} is the closest, but it may be loose.',
+      );
     }
     if (rec.isBetweenSizes) {
       final alt = rec.alternative!.size.label;
-      notes.add(rec.alternativeIsLarger
-          ? 'You are between sizes. Pick $alt if you want it looser.'
-          : 'You are between sizes. Pick $alt if you want it more fitted.');
+      notes.add(
+        rec.alternativeIsLarger
+            ? 'You are between sizes. Pick $alt if you want it looser.'
+            : 'You are between sizes. Pick $alt if you want it more fitted.',
+      );
     }
     if (rec.offsetApplied != 0) {
-      notes.add('Adjusted from what you told SizeCheck about past '
-          '${brand.name} purchases.');
+      notes.add(
+        'Adjusted from what you told SizeCheck about past '
+        '${brand.name} purchases.',
+      );
     }
     if (rec.usedEstimates) {
-      notes.add('Partly based on estimated measurements. Measuring yourself '
-          'makes this more accurate.');
+      notes.add(
+        'Partly based on estimated measurements. Measuring yourself '
+        'makes this more accurate.',
+      );
     }
     if (rec.missing.isNotEmpty) {
-      notes.add('Add your ${rec.missing.take(2).map((m) => m.label.toLowerCase()).join(' and ')} '
-          'for a more accurate result.');
+      notes.add(
+        'Add your ${rec.missing.take(2).map((m) => m.label.toLowerCase()).join(' and ')} '
+        'for a more accurate result.',
+      );
     }
     if (brand.origin == BrandOrigin.typical) {
-      notes.add('These are typical sizes across brands, not this brand\'s own '
-          'chart. Check the product page if you can.');
+      notes.add(
+        'These are typical sizes across brands, not this brand\'s own '
+        'chart. Check the product page if you can.',
+      );
     }
 
     return Card(
@@ -102,36 +122,48 @@ class ResultCard extends StatelessWidget {
                   child: Text(
                     best.size.label,
                     style: text.displayMedium?.copyWith(
-                        fontWeight: FontWeight.w800, color: scheme.primary),
+                      fontWeight: FontWeight.w800,
+                      color: scheme.primary,
+                    ),
                   ),
                 ),
                 if (best.size.alt.isNotEmpty) ...[
                   const SizedBox(width: 10),
                   Padding(
                     padding: const EdgeInsets.only(bottom: 10),
-                    child: Text('(${best.size.alt.join(' / ')})',
-                        style: text.titleMedium),
+                    child: Text(
+                      '(${best.size.alt.join(' / ')})',
+                      style: text.titleMedium,
+                    ),
                   ),
                 ],
                 const Spacer(),
                 Padding(
                   padding: const EdgeInsets.only(bottom: 10),
                   child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: confColor.withValues(alpha: 0.12),
                       borderRadius: BorderRadius.circular(20),
                     ),
-                    child: Text(confLabel,
-                        style: text.labelLarge?.copyWith(color: confColor)),
+                    child: Text(
+                      confLabel,
+                      style: text.labelLarge?.copyWith(color: confColor),
+                    ),
                   ),
                 ),
               ],
             ),
-            Text('${brand.name} · ${chart.category.label}', style: text.bodyMedium),
+            Text(
+              '${brand.name} · ${chart.category.label}',
+              style: text.bodyMedium,
+            ),
             const SizedBox(height: 16),
-            for (final f in best.fits) _FitRow(fit: f, size: best.size.label, units: units),
+            for (final f in best.fits)
+              _FitRow(fit: f, size: best.size.label, units: units),
             if (notes.isNotEmpty) ...[
               const SizedBox(height: 8),
               for (final n in notes)
@@ -140,7 +172,11 @@ class ResultCard extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Icon(Icons.info_outline, size: 18, color: scheme.secondary),
+                      Icon(
+                        Icons.info_outline,
+                        size: 18,
+                        color: scheme.secondary,
+                      ),
                       const SizedBox(width: 8),
                       Expanded(child: Text(n)),
                     ],
@@ -152,8 +188,12 @@ class ResultCard extends StatelessWidget {
               FilledButton.tonalIcon(
                 icon: const Icon(Icons.checkroom),
                 label: const Text('Bought it? Tell SizeCheck how it fit'),
-                onPressed: () => showFeedbackSheet(context,
-                    brand: brand, chart: chart, recommended: best.size.label),
+                onPressed: () => showFeedbackSheet(
+                  context,
+                  brand: brand,
+                  chart: chart,
+                  recommended: best.size.label,
+                ),
               ),
             const SizedBox(height: 8),
             ExpansionTile(
@@ -184,39 +224,52 @@ class _FitRow extends StatelessWidget {
     final (icon, color, verdict) = switch (fit.status) {
       FitStatus.within => (Icons.check_circle, scheme.primary, 'fits'),
       FitStatus.below => (
-          Icons.south,
-          scheme.secondary,
-          '${fmtLength(fit.distance, units)} under',
-        ),
+        Icons.south,
+        scheme.secondary,
+        '${fmtLength(fit.distance, units)} under',
+      ),
       FitStatus.above => (
-          Icons.north,
-          scheme.error,
-          '${fmtLength(fit.distance, units)} over',
-        ),
+        Icons.north,
+        scheme.error,
+        '${fmtLength(fit.distance, units)} over',
+      ),
     };
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
-      child: Row(children: [
-        Icon(icon, size: 20, color: color),
-        const SizedBox(width: 10),
-        Expanded(
-          child: Text.rich(TextSpan(children: [
-            TextSpan(
-                text: '${fit.measure.label} ',
-                style: const TextStyle(fontWeight: FontWeight.w600)),
-            TextSpan(text: fmtLength(fit.value, units)),
-            TextSpan(
-                text: '  ·  $size is ${fmtRange(fit.range, units)} ($verdict)',
-                style: TextStyle(color: scheme.onSurfaceVariant)),
-          ])),
-        ),
-      ]),
+      child: Row(
+        children: [
+          Icon(icon, size: 20, color: color),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: '${fit.measure.label} ',
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  TextSpan(text: fmtLength(fit.value, units)),
+                  TextSpan(
+                    text:
+                        '  ·  $size is ${fmtRange(fit.range, units)} ($verdict)',
+                    style: TextStyle(color: scheme.onSurfaceVariant),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
 
 class _ChartTable extends StatelessWidget {
-  const _ChartTable({required this.chart, required this.best, required this.units});
+  const _ChartTable({
+    required this.chart,
+    required this.best,
+    required this.units,
+  });
 
   final SizeChart chart;
   final int? best;
@@ -236,7 +289,9 @@ class _ChartTable extends StatelessWidget {
         columns: [
           const DataColumn(label: Text('Size')),
           for (final m in measures)
-            DataColumn(label: Text('${m.label.split(' ').first} (${unitLabel(units)})')),
+            DataColumn(
+              label: Text('${m.label.split(' ').first} (${unitLabel(units)})'),
+            ),
         ],
         rows: [
           for (var i = 0; i < chart.sizes.length; i++)
@@ -245,13 +300,23 @@ class _ChartTable extends StatelessWidget {
                   ? WidgetStatePropertyAll(scheme.primaryContainer)
                   : null,
               cells: [
-                DataCell(Text(chart.sizes[i].displayLabel,
-                    style: const TextStyle(fontWeight: FontWeight.w600))),
+                DataCell(
+                  Text(
+                    chart.sizes[i].displayLabel,
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                ),
                 for (final m in measures)
-                  DataCell(Text(chart.sizes[i].ranges[m] == null
-                      ? '–'
-                      : fmtRange(chart.sizes[i].ranges[m]!, units)
-                          .replaceAll(' ${unitLabel(units)}', ''))),
+                  DataCell(
+                    Text(
+                      chart.sizes[i].ranges[m] == null
+                          ? '–'
+                          : fmtRange(
+                              chart.sizes[i].ranges[m]!,
+                              units,
+                            ).replaceAll(' ${unitLabel(units)}', ''),
+                    ),
+                  ),
               ],
             ),
         ],
@@ -275,13 +340,15 @@ class _SourceLine extends StatelessWidget {
     } else if (brand.isUserAdded) {
       line = 'Chart you added yourself.';
     } else if (chart.source != null) {
-      line = 'From ${brand.name}\'s official size chart, checked '
+      line =
+          'From ${brand.name}\'s official size chart, checked '
           '${chart.source!.verifiedOn}.';
     } else {
       line = 'From ${brand.name}\'s size chart.';
     }
     if (chart.basis == ChartBasis.garment) {
-      line += ' The brand lists garment measurements; SizeCheck converts them '
+      line +=
+          ' The brand lists garment measurements; SizeCheck converts them '
           'to body sizes.';
     }
     final url = chart.source?.url;
@@ -293,8 +360,10 @@ class _SourceLine extends StatelessWidget {
           Text(line, style: text),
           if (url != null)
             TextButton(
-              onPressed: () => launchUrl(Uri.parse(url),
-                  mode: LaunchMode.externalApplication),
+              onPressed: () => launchUrl(
+                Uri.parse(url),
+                mode: LaunchMode.externalApplication,
+              ),
               child: const Text('View source'),
             ),
         ],

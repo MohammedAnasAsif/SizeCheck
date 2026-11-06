@@ -21,13 +21,22 @@ final bundle = <String, dynamic>{
           'basis': 'body',
           'unit': 'cm',
           'sizes': [
-            {'label': 'S', 'chest': [86, 91]},
-            {'label': 'M', 'chest': [91, 96]},
-            {'label': 'L', 'chest': [96, 101]},
+            {
+              'label': 'S',
+              'chest': [86, 91],
+            },
+            {
+              'label': 'M',
+              'chest': [91, 96],
+            },
+            {
+              'label': 'L',
+              'chest': [96, 101],
+            },
           ],
           'source': {
             'url': 'https://testbrand.example/size',
-            'verified_on': '2026-11-06'
+            'verified_on': '2026-11-06',
           },
         },
       ],

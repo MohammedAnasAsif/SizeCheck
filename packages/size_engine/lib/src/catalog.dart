@@ -9,10 +9,10 @@ class Catalog {
     required this.typical,
     List<Brand> userBrands = const [],
   }) : brands = [
-          ...userBrands,
-          // A user's own chart for a brand replaces nothing; both are shown.
-          ...brands,
-        ]..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+         ...userBrands,
+         // A user's own chart for a brand replaces nothing; both are shown.
+         ...brands,
+       ]..sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
 
   final String version;
   final List<Brand> brands;
@@ -23,8 +23,10 @@ class Catalog {
 
   static const typicalId = '_typical';
 
-  factory Catalog.fromBundle(Map<String, dynamic> json,
-      {List<Brand> userBrands = const []}) {
+  factory Catalog.fromBundle(
+    Map<String, dynamic> json, {
+    List<Brand> userBrands = const [],
+  }) {
     final typicalCharts = [
       for (final c in (json['typical'] as List? ?? const []))
         SizeChart.fromJson(c as Map<String, dynamic>),
@@ -64,7 +66,9 @@ class Catalog {
       final name = b.name.toLowerCase();
       if (name == q) return 0;
       if (name.startsWith(q)) return 1;
-      if (b.aliases.any((a) => a.startsWith(q) || a.replaceAll(' ', '').startsWith(compact))) {
+      if (b.aliases.any(
+        (a) => a.startsWith(q) || a.replaceAll(' ', '').startsWith(compact),
+      )) {
         return 2;
       }
       if (name.contains(q) || b.aliases.any((a) => a.contains(q))) return 3;
@@ -74,7 +78,9 @@ class Catalog {
     final hits = brands.where((b) => rank(b) < 99).toList()
       ..sort((a, b) {
         final r = rank(a).compareTo(rank(b));
-        return r != 0 ? r : a.name.toLowerCase().compareTo(b.name.toLowerCase());
+        return r != 0
+            ? r
+            : a.name.toLowerCase().compareTo(b.name.toLowerCase());
       });
     return hits;
   }

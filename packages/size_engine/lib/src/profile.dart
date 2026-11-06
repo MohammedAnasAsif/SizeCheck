@@ -32,21 +32,21 @@ enum FitOutcome {
   }
 
   String get label => switch (this) {
-        FitOutcome.tooSmall => 'Too small',
-        FitOutcome.tight => 'A bit tight',
-        FitOutcome.good => 'Fits well',
-        FitOutcome.loose => 'A bit loose',
-        FitOutcome.tooBig => 'Too big',
-      };
+    FitOutcome.tooSmall => 'Too small',
+    FitOutcome.tight => 'A bit tight',
+    FitOutcome.good => 'Fits well',
+    FitOutcome.loose => 'A bit loose',
+    FitOutcome.tooBig => 'Too big',
+  };
 
   /// cm added to the person's effective measurement next time.
   double get adjustment => switch (this) {
-        FitOutcome.tooSmall => 3.0,
-        FitOutcome.tight => 1.5,
-        FitOutcome.good => 0.0,
-        FitOutcome.loose => -1.5,
-        FitOutcome.tooBig => -3.0,
-      };
+    FitOutcome.tooSmall => 3.0,
+    FitOutcome.tight => 1.5,
+    FitOutcome.good => 0.0,
+    FitOutcome.loose => -1.5,
+    FitOutcome.tooBig => -3.0,
+  };
 }
 
 /// What the person bought and how it fit.
@@ -81,13 +81,13 @@ class FitFeedback {
   }
 
   Map<String, dynamic> toJson() => {
-        'brand': brandId,
-        'brand_name': brandName,
-        'category': category.id,
-        'size': sizeLabel,
-        'outcome': outcome.name,
-        'date': date.toIso8601String(),
-      };
+    'brand': brandId,
+    'brand_name': brandName,
+    'category': category.id,
+    'size': sizeLabel,
+    'outcome': outcome.name,
+    'date': date.toIso8601String(),
+  };
 }
 
 /// One person's body measurements and fit history. Values are in cm.
@@ -101,10 +101,10 @@ class BodyProfile {
     this.fitPreference = FitPreference.regular,
     Map<String, double>? brandOffsets,
     List<FitFeedback>? history,
-  })  : measurements = measurements ?? {},
-        estimated = estimated ?? {},
-        brandOffsets = brandOffsets ?? {},
-        history = history ?? [];
+  }) : measurements = measurements ?? {},
+       estimated = estimated ?? {},
+       brandOffsets = brandOffsets ?? {},
+       history = history ?? [];
 
   final String id;
   String name;
@@ -156,9 +156,11 @@ class BodyProfile {
     history.insert(0, feedback);
     final key = offsetKey(feedback.brandId, feedback.category);
     final current = brandOffsets[key] ?? 0.0;
-    final boughtRecommended = recommendedLabel == null ||
+    final boughtRecommended =
+        recommendedLabel == null ||
         recommendedLabel.toUpperCase() == feedback.sizeLabel.toUpperCase();
-    final strong = feedback.outcome == FitOutcome.tooSmall ||
+    final strong =
+        feedback.outcome == FitOutcome.tooSmall ||
         feedback.outcome == FitOutcome.tooBig;
     double next = current;
     if (feedback.outcome == FitOutcome.good) {
@@ -210,17 +212,17 @@ class BodyProfile {
   }
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'audience': audience.name,
-        'measurements': {
-          for (final e in measurements.entries) e.key.key: round1(e.value),
-        },
-        'estimated': [for (final m in estimated) m.key],
-        'fit': fitPreference.name,
-        'offsets': brandOffsets,
-        'history': [for (final h in history) h.toJson()],
-      };
+    'id': id,
+    'name': name,
+    'audience': audience.name,
+    'measurements': {
+      for (final e in measurements.entries) e.key.key: round1(e.value),
+    },
+    'estimated': [for (final m in estimated) m.key],
+    'fit': fitPreference.name,
+    'offsets': brandOffsets,
+    'history': [for (final h in history) h.toJson()],
+  };
 
   static const String _exportPrefix = 'SIZECHECK1:';
 
@@ -239,8 +241,9 @@ class BodyProfile {
         .split(RegExp(r'\s'))
         .first;
     try {
-      final json = jsonDecode(utf8.decode(base64Url.decode(base64Url.normalize(payload))))
-          as Map<String, dynamic>;
+      final json = jsonDecode(
+        utf8.decode(base64Url.decode(base64Url.normalize(payload))),
+      ) as Map<String, dynamic>;
       json['id'] = newId;
       return BodyProfile.fromJson(json);
     } catch (_) {
